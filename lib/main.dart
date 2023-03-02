@@ -1,11 +1,13 @@
-import 'package:cookuy/recomRecipe.dart';
-import 'package:cookuy/views/home.dart';
-import 'package:cookuy/views/saved.dart';
+import 'package:cookuy/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'views/ResumeIngredient.dart';
 
-void main() {
+Future<void> main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
