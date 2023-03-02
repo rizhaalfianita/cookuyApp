@@ -1,5 +1,7 @@
 import 'package:cookuy/recomRecipe.dart';
+import 'package:cookuy/views/detail.dart';
 import 'package:cookuy/views/home.dart';
+import 'package:cookuy/views/login.dart';
 import 'package:cookuy/views/saved.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: "Nunito"),
-      home: RecomRecipe(),
+      home: Login(),
     );
   }
 }

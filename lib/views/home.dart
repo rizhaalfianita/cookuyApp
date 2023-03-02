@@ -44,11 +44,17 @@ class _HomeState extends State<Home> {
               onTap: onTap,
               currentIndex: currentIndex,
               items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.home_outlined,
+                      size: 24,
+                    ),
+                    label: 'Home'),
                 BottomNavigationBarItem(
                     activeIcon: null, icon: Icon(null), label: 'Scan'),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.bookmark), label: 'Feed'),
+                    icon: Icon(Icons.bookmark_border_outlined, size: 24),
+                    label: 'Feed'),
               ],
               selectedItemColor: lightOrange,
               unselectedItemColor: lightGrey,
