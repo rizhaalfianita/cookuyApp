@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "204939934975",
+    "project_id": "cookuya-38cc2",
+    "storage_bucket": "cookuya-38cc2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204939934975:android:fbbae48defc65e271d20ca",
+        "android_client_info": {
+          "package_name": "com.example.cookuy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204939934975-ukpmrj1i3u1h4gosps4l3sr05upvjh4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnxr48rXtLut-fqGZbObDXF5oq1AaI8_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204939934975-ukpmrj1i3u1h4gosps4l3sr05upvjh4e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
