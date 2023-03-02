@@ -15,6 +15,26 @@ class AllRcipe extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Material(
+                  color: lightOrange,
+                  borderRadius: BorderRadius.circular(50),
+                  elevation: 1,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: Icon(
+                      Icons.keyboard_arrow_left,
+                      color: white,
+                      size: 28,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
               Text("All Recipes",
                   style: TextStyle(
                       color: semiBlack,

@@ -36,7 +36,9 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context);
+                },
                 child: SizedBox(
                   width: 160,
                   child: Material(

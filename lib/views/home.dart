@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cookuy/constants.dart';
 import 'package:cookuy/views/allRecipe.dart';
 import 'package:cookuy/views/components/customWidget.dart';
+import 'package:cookuy/views/detail.dart';
+import 'package:cookuy/views/resumeIngredient.dart';
 import 'package:cookuy/views/saved.dart';
 import 'package:cookuy/views/scan.dart';
 import 'package:flutter/material.dart';
@@ -162,30 +164,40 @@ class Body extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    height: 120,
-                    width: 180,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: borderColor, width: 1)),
-                    padding: const EdgeInsets.all(defaultPadding),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/add.svg",
-                          height: 30,
-                          width: 30,
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          "Add Manual",
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: semiBlack,
-                              fontWeight: FontWeight.w700),
-                        )
-                      ],
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResumeIngredient(
+                                    meals: [],
+                                  )));
+                    },
+                    child: Container(
+                      height: 120,
+                      width: 180,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: borderColor, width: 1)),
+                      padding: const EdgeInsets.all(defaultPadding),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/icons/add.svg",
+                            height: 30,
+                            width: 30,
+                          ),
+                          const SizedBox(height: 10),
+                          const Text(
+                            "Add Manual",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: semiBlack,
+                                fontWeight: FontWeight.w700),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -224,7 +236,12 @@ class Body extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: 3,
                 itemBuilder: (context, index) {
-                  return RecipeCard();
+                  return InkWell(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Detail()));
+                      },
+                      child: RecipeCard());
                 },
               )
             ],

@@ -30,20 +30,25 @@ class Detail extends StatelessWidget {
                           image: AssetImage("assets/images/fried-rice.jpg"),
                           fit: BoxFit.cover)),
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: defaultPadding, vertical: 20),
-                  child: Material(
-                    color: lightOrange,
-                    borderRadius: BorderRadius.circular(50),
-                    elevation: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 5),
-                      child: Icon(
-                        Icons.keyboard_arrow_left,
-                        color: white,
-                        size: 28,
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: defaultPadding, vertical: 20),
+                    child: Material(
+                      color: lightOrange,
+                      borderRadius: BorderRadius.circular(50),
+                      elevation: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 5),
+                        child: Icon(
+                          Icons.keyboard_arrow_left,
+                          color: white,
+                          size: 28,
+                        ),
                       ),
                     ),
                   ),

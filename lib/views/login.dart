@@ -1,4 +1,6 @@
 import 'package:cookuy/constants.dart';
+import 'package:cookuy/views/home.dart';
+import 'package:cookuy/views/register.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
@@ -74,7 +76,10 @@ class Login extends StatelessWidget {
               height: 54,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Home()));
+                },
                 child: Text(
                   "Sign In",
                   style: TextStyle(
@@ -105,9 +110,15 @@ class Login extends StatelessWidget {
                   "Don't have an account? ",
                   style: TextStyle(color: semiBlack, fontSize: 16),
                 ),
-                Text(
-                  "Sign Up",
-                  style: TextStyle(color: lightOrange, fontSize: 16),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Register()));
+                  },
+                  child: Text(
+                    "Sign Up",
+                    style: TextStyle(color: lightOrange, fontSize: 16),
+                  ),
                 ),
               ],
             )
