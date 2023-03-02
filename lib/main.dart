@@ -1,11 +1,5 @@
-import 'package:cookuy/recomRecipe.dart';
-import 'package:cookuy/views/detail.dart';
-import 'package:cookuy/views/home.dart';
-import 'package:cookuy/views/login.dart';
-import 'package:cookuy/views/saved.dart';
+import 'package:cookuy/views/register.dart';
 import 'package:flutter/material.dart';
-
-import 'views/ResumeIngredient.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: "Nunito"),
-      home: Login(),
+      home: const Register(),
     );
   }
 }

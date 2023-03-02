@@ -123,16 +123,16 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                       ),
-                      onTapOutside: (event) {
-                        //remove focus node when tap outside
-                        //update ingredient name
-                        setState(() {
-                          widget.meals[index] = myFocusNode[index]
-                              .attachedContext!
-                              .readState()! as String;
-                          myFocusNode[index].unfocus();
-                        });
-                      },
+                      // onTapOutside: (event) {
+                      //   //remove focus node when tap outside
+                      //   //update ingredient name
+                      //   setState(() {
+                      //     widget.meals[index] = myFocusNode[index]
+                      //         .attachedContext!
+                      //         .readState()! as String;
+                      //     myFocusNode[index].unfocus();
+                      //   });
+                      // },
                       // onChanged: (value) {
                       //   setState(() {
                       //     widget.meals[index] = value;

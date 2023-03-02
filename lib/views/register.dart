@@ -1,8 +1,8 @@
 import 'package:cookuy/constants.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class Register extends StatelessWidget {
+  const Register({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class Login extends StatelessWidget {
             )),
             SizedBox(height: 20),
             Text(
-              "Sign In",
+              "Sign Up",
               style: TextStyle(
                   color: semiBlack, fontWeight: FontWeight.w800, fontSize: 30),
             ),
@@ -69,6 +69,28 @@ class Login extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 15),
+            Container(
+              width: MediaQuery.of(context).size.width * 1,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  filled: true,
+                  focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: extraLightGrey)),
+                  fillColor: extraLightGrey,
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          const BorderSide(color: extraLightGrey, width: 3)),
+                  hintText: 'Confirm Password',
+                  prefixIcon: const Icon(
+                    Icons.key,
+                    color: lightGrey,
+                  ),
+                  hintStyle: const TextStyle(color: lightGrey, fontSize: 16),
+                ),
+              ),
+            ),
             SizedBox(height: 20),
             SizedBox(
               height: 54,
@@ -76,7 +98,7 @@ class Login extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {},
                 child: Text(
-                  "Sign In",
+                  "Sign Up",
                   style: TextStyle(
                       color: white, fontSize: 17, fontWeight: FontWeight.bold),
                 ),
@@ -106,7 +128,7 @@ class Login extends StatelessWidget {
                   style: TextStyle(color: semiBlack, fontSize: 16),
                 ),
                 Text(
-                  "Sign Up",
+                  "Sign In",
                   style: TextStyle(color: lightOrange, fontSize: 16),
                 ),
               ],
