@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class ResumeIngredient extends StatefulWidget {
-  final List meals;
-  const ResumeIngredient({super.key, required this.meals});
+  List meals;
+  ResumeIngredient({super.key, required this.meals});
 
   @override
   State<ResumeIngredient> createState() => _ResumeIngredientState();

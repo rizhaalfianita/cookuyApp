@@ -6,10 +6,15 @@ import 'package:cookuy/views/detail.dart';
 import 'package:cookuy/views/resumeIngredient.dart';
 import 'package:cookuy/views/scan.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_mlkit_object_detection/google_mlkit_object_detection.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'dart:io' as io;
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+//import ui
+import 'dart:ui' as ui;
 import '../controller/recipesByIngreController.dart';
 
 class Home extends StatefulWidget {
@@ -20,9 +25,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List pages = [const Body(), const Scan(), const Scan()];
+  List pages = [const Body(), Body(), Body()];
 
   int currentIndex = 0;
+  ui.Image? iimage;
 
   void onTap(int index) {
     setState(() {
@@ -32,30 +38,73 @@ class _HomeState extends State<Home> {
 
   //get image from camera and process object detection with google ML kit
   //get ingredients from image and pass to allRecipe page
-  void getIngredients() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.camera);
-    if (pickedFile != null) {
-      const mode = DetectionMode.single;
-      final options = LocalObjectDetectorOptions(
-          mode: mode,
-          classifyObjects: false,
-          multipleObjects: true,
-          modelPath: "assets/ml/IngredientDetector_best-fp16.tflite");
-      final objectDetector = ObjectDetector(options: options);
+  void getIngredients(BuildContext context) async {
+    //create try cacth foimage picker
+    try {
+      final pickedFile = await ImagePicker().pickImage(
+          source: ImageSource.camera, maxHeight: 500, imageQuality: 40);
+      if (pickedFile != null) {
+        const mode = DetectionMode.single;
+        final options = LocalObjectDetectorOptions(
+            mode: mode,
+            classifyObjects: false,
+            multipleObjects: true,
+            modelPath: await _getModel('assets/ml/IngredientDetector.tflite'));
+        final objectDetector = ObjectDetector(options: options);
 
-      final List<DetectedObject> objects = await objectDetector
-          .processImage(InputImage.fromFilePath(pickedFile.path));
+        final List<DetectedObject> objects = await objectDetector
+            .processImage(InputImage.fromFilePath(pickedFile.path));
 
-      for (DetectedObject detectedObject in objects) {
-        final rect = detectedObject.boundingBox;
-        final trackingId = detectedObject.trackingId;
-
-        for (Label label in detectedObject.labels) {
-          print('${label.text} ${label.confidence}');
+        for (DetectedObject detectedObject in objects) {
+          final rect = detectedObject.boundingBox;
+          final trackingId = detectedObject.trackingId;
+          print("=========ML=======");
+          print('rect: $rect');
+          print('trackingId: $trackingId');
+          print(detectedObject.labels.toString());
+          for (Label label in detectedObject.labels) {
+            print('===HEHEHEHEH ${label.text} ${label.confidence}');
+          }
         }
+        await _loadImage(pickedFile);
+        ui.Image imgBefore = await converttoImage(pickedFile);
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return Scan(
+              imageBefore: imgBefore, imageAfter: iimage!, objectss: objects);
+        }));
       }
+    } catch (e) {
+      print(e);
     }
+  }
+
+  _loadImage(XFile? file) async {
+    final data = await file?.readAsBytes();
+    await decodeImageFromList(data!).then((value) => iimage = value);
+  }
+
+  Future<ui.Image> converttoImage(XFile file) async {
+    ui.Image? img = null;
+    final data = await file.readAsBytes();
+    await decodeImageFromList(data).then((value) {
+      img = value;
+    });
+    return img!;
+  }
+
+  Future<String> _getModel(String assetPath) async {
+    if (io.Platform.isAndroid) {
+      return 'flutter_assets/$assetPath';
+    }
+    final path = '${(await getApplicationSupportDirectory()).path}/$assetPath';
+    await io.Directory(dirname(path)).create(recursive: true);
+    final file = io.File(path);
+    if (!await file.exists()) {
+      final byteData = await rootBundle.load(assetPath);
+      await file.writeAsBytes(byteData.buffer
+          .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+    }
+    return file.path;
   }
 
   @override
@@ -110,7 +159,7 @@ class _HomeState extends State<Home> {
           child: const Icon(Icons.photo_camera),
           onPressed: () => setState(() {
             currentIndex = 1;
-            getIngredients();
+            getIngredients(context);
           }),
         ),
       ),
@@ -222,7 +271,7 @@ class _BodyState extends State<Body> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ResumeIngredient(
+                              builder: (context) => ResumeIngredient(
                                     meals: [],
                                   )));
                     },
