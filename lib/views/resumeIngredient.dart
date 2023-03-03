@@ -87,15 +87,20 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                 ),
               ),
               const SizedBox(height: 12),
-              FittedBox(
-                child: SizedBox(
-                  width: widget.imageAfter.width.toDouble(),
-                  height: widget.imageAfter.height.toDouble(),
-                  child: CustomPaint(
-                    painter: ObjectPainter(widget.imageAfter, widget.objectss!),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: FittedBox(
+                  child: SizedBox(
+                    width: widget.imageAfter.width.toDouble(),
+                    height: widget.imageAfter.height.toDouble(),
+                    child: CustomPaint(
+                      painter:
+                          ObjectPainter(widget.imageAfter, widget.objectss!),
+                    ),
                   ),
                 ),
               ),
+              const SizedBox(height: 12),
               Container(
                 width: double.infinity,
                 height: 50,
