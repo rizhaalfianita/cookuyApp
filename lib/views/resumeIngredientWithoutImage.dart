@@ -6,22 +6,18 @@ import 'dart:ui' as ui;
 import '../constants.dart';
 import '../objectPainter.dart';
 
-class ResumeIngredient extends StatefulWidget {
+class ResumeIngredientWithoutImage extends StatefulWidget {
   List meals;
-
-  ui.Image imageAfter;
-  List<DetectedObject>? objectss;
-  ResumeIngredient(
-      {super.key,
-      required this.meals,
-      required this.imageAfter,
-      required this.objectss});
+  ResumeIngredientWithoutImage({
+    super.key,
+    required this.meals,
+  });
 
   @override
-  State<ResumeIngredient> createState() => _ResumeIngredientState();
+  State<ResumeIngredientWithoutImage> createState() => _ResumeIngredientState();
 }
 
-class _ResumeIngredientState extends State<ResumeIngredient> {
+class _ResumeIngredientState extends State<ResumeIngredientWithoutImage> {
   late List myFocusNode = [];
 
   //init state
@@ -65,7 +61,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                           Icon(Icons.keyboard_arrow_left, color: white),
                           SizedBox(width: 3),
                           Text(
-                            "Back to Scan",
+                            "Back to Home",
                             style: TextStyle(
                               color: white,
                               fontSize: 17,
@@ -87,15 +83,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                 ),
               ),
               const SizedBox(height: 12),
-              FittedBox(
-                child: SizedBox(
-                  width: widget.imageAfter.width.toDouble(),
-                  height: widget.imageAfter.height.toDouble(),
-                  child: CustomPaint(
-                    painter: ObjectPainter(widget.imageAfter, widget.objectss!),
-                  ),
-                ),
-              ),
+
               Container(
                 width: double.infinity,
                 height: 50,

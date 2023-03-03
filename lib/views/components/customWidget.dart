@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cookuy/constants.dart';
 import 'package:cookuy/models/recipesByIngre.dart';
 import 'package:cookuy/views/detail.dart';
@@ -45,42 +46,45 @@ Widget RecipeCard(Meals2 meals, context) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Wrap(children: [
-                        Text(
+                      Container(
+                        width: MediaQuery.of(context).size.width -
+                            defaultPadding * 7,
+                        child: AutoSizeText(
                           meals.strMeal as String,
                           style: const TextStyle(
                               color: semiBlack,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.w700),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ]),
-                      Material(
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(10),
-                        color: extraLightOrange,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 2, horizontal: 10),
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.location_pin,
-                                color: white,
-                                size: 16,
-                              ),
-                              SizedBox(width: 5),
-                              // Text(
-                              //   meals.strArea == null
-                              //       ? "Unknown"
-                              //       : meals.strArea as String,
-                              //   style: TextStyle(
-                              //       color: white, fontWeight: FontWeight.w400),
-                              // ),
-                            ],
-                          ),
+                          overflow: TextOverflow.clip,
+                          maxLines: 3,
                         ),
                       ),
+                      // Material(
+                      //   elevation: 1,
+                      //   borderRadius: BorderRadius.circular(10),
+                      //   color: extraLightOrange,
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.symmetric(
+                      //         vertical: 2, horizontal: 10),
+                      //     child: Row(
+                      //       children: const [
+                      //         Icon(
+                      //           Icons.location_pin,
+                      //           color: white,
+                      //           size: 16,
+                      //         ),
+                      //         SizedBox(width: 5),
+                      //         // Text(
+                      //         //   meals.strArea == null
+                      //         //       ? "Unknown"
+                      //         //       : meals.strArea as String,
+                      //         //   style: TextStyle(
+                      //         //       color: white, fontWeight: FontWeight.w400),
+                      //         // ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 5),

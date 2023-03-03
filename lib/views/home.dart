@@ -4,18 +4,13 @@ import 'package:cookuy/views/allRecipe.dart';
 import 'package:cookuy/views/components/customWidget.dart';
 import 'package:cookuy/views/detail.dart';
 import 'package:cookuy/views/resumeIngredient.dart';
-import 'package:cookuy/views/scan.dart';
+import 'package:cookuy/views/resumeIngredientWithoutImage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_mlkit_object_detection/google_mlkit_object_detection.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io' as io;
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 //import ui
 import 'dart:ui' as ui;
 import '../controller/recipesByIngreController.dart';
+import '../openCameraAndMLkit.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -25,86 +20,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List pages = [const Body(), Body(), Body()];
+  List pages = [const Body(), null, Body()];
 
   int currentIndex = 0;
-  ui.Image? iimage;
 
   void onTap(int index) {
     setState(() {
       currentIndex = index;
-    });
-  }
-
-  //get image from camera and process object detection with google ML kit
-  //get ingredients from image and pass to allRecipe page
-  void getIngredients(BuildContext context) async {
-    //create try cacth foimage picker
-    try {
-      final pickedFile = await ImagePicker().pickImage(
-          source: ImageSource.camera, maxHeight: 500, imageQuality: 40);
-      if (pickedFile != null) {
-        const mode = DetectionMode.single;
-        final options = LocalObjectDetectorOptions(
-            mode: mode,
-            classifyObjects: false,
-            multipleObjects: true,
-            modelPath: await _getModel('assets/ml/IngredientDetector.tflite'));
-        final objectDetector = ObjectDetector(options: options);
-
-        final List<DetectedObject> objects = await objectDetector
-            .processImage(InputImage.fromFilePath(pickedFile.path));
-
-        for (DetectedObject detectedObject in objects) {
-          final rect = detectedObject.boundingBox;
-          final trackingId = detectedObject.trackingId;
-          print("=========ML=======");
-          print('rect: $rect');
-          print('trackingId: $trackingId');
-          print(detectedObject.labels.toString());
-          for (Label label in detectedObject.labels) {
-            print('===HEHEHEHEH ${label.text} ${label.confidence}');
-          }
-        }
-        await _loadImage(pickedFile);
-        ui.Image imgBefore = await converttoImage(pickedFile);
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Scan(
-              imageBefore: imgBefore, imageAfter: iimage!, objectss: objects);
-        }));
+      if (index == 1) {
+        currentIndex = 0;
       }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  _loadImage(XFile? file) async {
-    final data = await file?.readAsBytes();
-    await decodeImageFromList(data!).then((value) => iimage = value);
-  }
-
-  Future<ui.Image> converttoImage(XFile file) async {
-    ui.Image? img = null;
-    final data = await file.readAsBytes();
-    await decodeImageFromList(data).then((value) {
-      img = value;
     });
-    return img!;
-  }
-
-  Future<String> _getModel(String assetPath) async {
-    if (io.Platform.isAndroid) {
-      return 'flutter_assets/$assetPath';
-    }
-    final path = '${(await getApplicationSupportDirectory()).path}/$assetPath';
-    await io.Directory(dirname(path)).create(recursive: true);
-    final file = io.File(path);
-    if (!await file.exists()) {
-      final byteData = await rootBundle.load(assetPath);
-      await file.writeAsBytes(byteData.buffer
-          .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-    }
-    return file.path;
   }
 
   @override
@@ -177,6 +103,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   List meals = [];
   bool isLoading = true;
+  //get widht screen from mediaquery
 
   @override
   void initState() {
@@ -193,6 +120,8 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    double widthScreen = MediaQuery.of(context).size.width;
+    print("Width: $widthScreen");
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -212,8 +141,8 @@ class _BodyState extends State<Body> {
                         "Hello, John!",
                         style: TextStyle(color: lightGrey, fontSize: 16),
                       ),
-                      const SizedBox(
-                        width: 300,
+                      SizedBox(
+                        width: widthScreen * 0.7,
                         child: AutoSizeText(
                           "Unleash your inner chef with Cookuy",
                           maxLines: 2,
@@ -240,30 +169,35 @@ class _BodyState extends State<Body> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 120,
-                    width: 180,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: borderColor, width: 1)),
-                    padding: const EdgeInsets.all(defaultPadding),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/scan.svg",
-                          height: 30,
-                          width: 30,
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          "Scan",
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: semiBlack,
-                              fontWeight: FontWeight.w700),
-                        )
-                      ],
+                  GestureDetector(
+                    onTap: () {
+                      getIngredients(context);
+                    },
+                    child: Container(
+                      height: 120,
+                      width: (widthScreen - 72) / 2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: borderColor, width: 1)),
+                      padding: const EdgeInsets.all(defaultPadding),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/icons/scan.svg",
+                            height: 30,
+                            width: 30,
+                          ),
+                          const SizedBox(height: 10),
+                          const Text(
+                            "Scan",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: semiBlack,
+                                fontWeight: FontWeight.w700),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   InkWell(
@@ -271,13 +205,14 @@ class _BodyState extends State<Body> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ResumeIngredient(
+                              builder: (context) =>
+                                  ResumeIngredientWithoutImage(
                                     meals: [],
                                   )));
                     },
                     child: Container(
                       height: 120,
-                      width: 180,
+                      width: (widthScreen - 72) / 2,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: borderColor, width: 1)),
