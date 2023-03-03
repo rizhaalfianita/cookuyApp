@@ -2,8 +2,34 @@ import 'package:cookuy/constants.dart';
 import 'package:cookuy/views/components/customWidget.dart';
 import 'package:flutter/material.dart';
 
-class AllRcipe extends StatelessWidget {
-  const AllRcipe({super.key});
+import '../controller/recipesByIngreController.dart';
+
+class AllRcipe extends StatefulWidget {
+  final List ingredients;
+  const AllRcipe({super.key, required this.ingredients});
+
+  @override
+  State<AllRcipe> createState() => _AllRcipeState();
+}
+
+class _AllRcipeState extends State<AllRcipe> {
+  //init method and call API to get data
+
+  List meals = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    isLoading = true;
+    getRecipesByIngre(widget.ingredients[0]).then((value) {
+      setState(() {
+        meals = value;
+        isLoading = false;
+        print(meals.toString());
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +49,8 @@ class AllRcipe extends StatelessWidget {
                   color: lightOrange,
                   borderRadius: BorderRadius.circular(50),
                   elevation: 1,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: Icon(
                       Icons.keyboard_arrow_left,
                       color: white,
@@ -34,20 +59,22 @@ class AllRcipe extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Text("All Recipes",
+              const SizedBox(height: 20),
+              const Text("All Recipes",
                   style: TextStyle(
                       color: semiBlack,
                       fontSize: 22,
                       fontWeight: FontWeight.w700)),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return RecipeCard();
-                },
-              )
+              isLoading
+                  ? const CircularProgressIndicator()
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return RecipeCard(meals[index], context);
+                      },
+                    )
             ],
           ),
         ),

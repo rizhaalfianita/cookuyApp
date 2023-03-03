@@ -24,7 +24,7 @@ class Recipes {
 class Meals {
   String? idMeal;
   String? strMeal;
-  Null? strDrinkAlternate;
+  String? strDrinkAlternate;
   String? strCategory;
   String? strArea;
   String? strInstructions;
@@ -72,9 +72,11 @@ class Meals {
   String? strMeasure19;
   String? strMeasure20;
   String? strSource;
-  Null? strImageSource;
-  Null? strCreativeCommonsConfirmed;
-  Null? dateModified;
+  String? strImageSource;
+  String? strCreativeCommonsConfirmed;
+  String? dateModified;
+  List<String>? ingredients;
+  List<String>? measures;
 
   Meals(
       {this.idMeal,
@@ -129,7 +131,9 @@ class Meals {
       this.strSource,
       this.strImageSource,
       this.strCreativeCommonsConfirmed,
-      this.dateModified});
+      this.dateModified,
+      this.ingredients,
+      this.measures});
 
   Meals.fromJson(Map<String, dynamic> json) {
     idMeal = json['idMeal'];
@@ -185,6 +189,24 @@ class Meals {
     strImageSource = json['strImageSource'];
     strCreativeCommonsConfirmed = json['strCreativeCommonsConfirmed'];
     dateModified = json['dateModified'];
+    ingredients = (x) {
+      List<String> list = [];
+      for (var i = 1; i <= 20; i++) {
+        if (x['strIngredient$i'] != null && x['strIngredient$i'] != "") {
+          list.add(x['strIngredient$i']);
+        }
+      }
+      return list;
+    }(json);
+    measures = (x) {
+      List<String> list = [];
+      for (var i = 1; i <= 20; i++) {
+        if (x['strMeasure$i'] != null && x['strMeasure$i'] != "") {
+          list.add(x['strMeasure$i']);
+        }
+      }
+      return list;
+    }(json);
   }
 
   Map<String, dynamic> toJson() {
