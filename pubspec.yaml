@@ -45,6 +45,7 @@ dependencies:
   google_mlkit_object_detection: ^0.6.0
   image_picker: ^0.8.6+4
   path_provider: ^2.0.13
+  tflite_flutter_helper: ^0.3.1
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +75,7 @@ flutter:
     - assets/icons/
     - assets/ml/IngredientDetector_best-fp16.tflite
     - assets/ml/IngredientDetector.tflite
+    - assets/ml/FoodIngredient_PascalVOC.tflite
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

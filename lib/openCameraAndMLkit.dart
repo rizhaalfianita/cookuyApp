@@ -1,5 +1,4 @@
 import 'package:cookuy/views/resumeIngredient.dart';
-import 'package:cookuy/views/scan.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
@@ -8,11 +7,41 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io' as io;
 import 'package:path/path.dart';
+// import tflite
 
 //import ui
 import 'dart:ui' as ui;
 
 ui.Image? iimage;
+// List<dynamic>? _recognitions;
+
+//   Future<void> loadModel() async {
+//     try {
+//       String res = await Tflite.loadModel(
+//         model: 'assets/ssd_mobilenet_v1.tflite',
+//         labels: 'assets/ssd_mobilenet_v1.txt',
+//       );
+//       print('loadModel: $res');
+//     } catch (e) {
+//       print('Error loading model: $e');
+//     }
+//   }
+
+//   Future<void> predict(io.File imageFile) async {
+//     try {
+//       Uint8List imageBytes = await imageFile.readAsBytes();
+//       var recognitions = await Tflite.detectObjectOnBinary(
+//         binary: imageBytes,
+//         threshold: 0.5,
+//         numResultsPerClass: 1,
+//       );
+
+//         _recognitions = recognitions;
+
+//     } catch (e) {
+//       print('Error predicting: $e');
+//     }
+//   }
 
 void getIngredients(BuildContext context) async {
   //create try cacth foimage picker
@@ -25,7 +54,8 @@ void getIngredients(BuildContext context) async {
           mode: mode,
           classifyObjects: false,
           multipleObjects: true,
-          modelPath: await _getModel('assets/ml/IngredientDetector.tflite'));
+          modelPath:
+              await _getModel('assets/ml/FoodIngredient_PascalVOC.tflite'));
       final objectDetector = ObjectDetector(options: options);
 
       final List<DetectedObject> objects = await objectDetector
