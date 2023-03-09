@@ -46,7 +46,9 @@ void getIngredients(BuildContext context) async {
       ui.Image imgBefore = await converttoImage(pickedFile);
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return ResumeIngredient(
-            meals: [], imageAfter: imgBefore, objectss: objects);
+            meals: ["tofu", "salt", "carrot", "cabbage", "onion", "potato"],
+            imageAfter: imgBefore,
+            objectss: objects);
       }));
     }
   } catch (e) {

@@ -70,7 +70,7 @@ class _AllRcipeState extends State<AllRcipe> {
                   : ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 4,
+                      itemCount: meals.length,
                       itemBuilder: (context, index) {
                         return RecipeCard(meals[index], context);
                       },
