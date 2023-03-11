@@ -15,19 +15,19 @@ class Login extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Center(
                 child: Image.asset(
               "assets/images/logo.png",
               width: 130,
             )),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               "Sign In",
               style: TextStyle(
                   color: semiBlack, fontWeight: FontWeight.w800, fontSize: 30),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width * 1,
               child: TextFormField(
@@ -49,7 +49,7 @@ class Login extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Container(
               width: MediaQuery.of(context).size.width * 1,
               child: TextFormField(
@@ -71,16 +71,16 @@ class Login extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
               height: 54,
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Home()));
+                      MaterialPageRoute(builder: (context) => const Home()));
                 },
-                child: Text(
+                child: const Text(
                   "Sign In",
                   style: TextStyle(
                       color: white, fontSize: 17, fontWeight: FontWeight.bold),
@@ -93,29 +93,31 @@ class Login extends StatelessWidget {
                     )),
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Container(
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(
                       bottom: BorderSide(color: extraLightGrey, width: 2))),
             ),
-            SizedBox(
+            const SizedBox(
               height: defaultPadding,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Don't have an account? ",
                   style: TextStyle(color: semiBlack, fontSize: 16),
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Register()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Register()));
                   },
-                  child: Text(
+                  child: const Text(
                     "Sign Up",
                     style: TextStyle(color: lightOrange, fontSize: 16),
                   ),

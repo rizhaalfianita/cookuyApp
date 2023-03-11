@@ -1,13 +1,63 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:google_mlkit_object_detection/google_mlkit_object_detection.dart';
+import 'dart:ui' as ui;
+import '../objectPainter.dart';
 
 class Scan extends StatelessWidget {
-  const Scan({super.key});
+  ui.Image imageBefore;
+  ui.Image imageAfter;
+  List<DetectedObject>? objectss;
+  Scan(
+      {super.key,
+      required this.imageBefore,
+      required this.imageAfter,
+      required this.objectss});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Scan"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //display imgae from imagebefore
+            Image.file(File(imageBefore.toString())),
+            FittedBox(
+              child: SizedBox(
+                width: imageAfter.width.toDouble(),
+                height: imageAfter.height.toDouble(),
+                child: CustomPaint(
+                  painter: ObjectPainter(imageAfter, objectss!),
+                ),
+              ),
+            ),
+            Container(
+              //text center
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Label : Daging Babi",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    "Conf : 0.8844",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

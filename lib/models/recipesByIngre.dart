@@ -1,14 +1,14 @@
 // ignore: file_names
 class RecipesByIngre {
-  List<Meals>? meals;
+  List<Meals2>? meals;
 
   RecipesByIngre({this.meals});
 
   RecipesByIngre.fromJson(Map<String, dynamic> json) {
     if (json['meals'] != null) {
-      meals = <Meals>[];
+      meals = <Meals2>[];
       json['meals'].forEach((v) {
-        meals!.add(Meals.fromJson(v));
+        meals!.add(Meals2.fromJson(v));
       });
     }
   }
@@ -22,14 +22,14 @@ class RecipesByIngre {
   }
 }
 
-class Meals {
+class Meals2 {
   String? strMeal;
   String? strMealThumb;
   String? idMeal;
 
-  Meals({this.strMeal, this.strMealThumb, this.idMeal});
+  Meals2({this.strMeal, this.strMealThumb, this.idMeal});
 
-  Meals.fromJson(Map<String, dynamic> json) {
+  Meals2.fromJson(Map<String, dynamic> json) {
     strMeal = json['strMeal'];
     strMealThumb = json['strMealThumb'];
     idMeal = json['idMeal'];

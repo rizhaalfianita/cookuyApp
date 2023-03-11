@@ -4,10 +4,13 @@ import 'package:cookuy/views/allRecipe.dart';
 import 'package:cookuy/views/components/customWidget.dart';
 import 'package:cookuy/views/detail.dart';
 import 'package:cookuy/views/resumeIngredient.dart';
-import 'package:cookuy/views/saved.dart';
-import 'package:cookuy/views/scan.dart';
+import 'package:cookuy/views/resumeIngredientWithoutImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+//import ui
+import 'dart:ui' as ui;
+import '../controller/recipesByIngreController.dart';
+import '../openCameraAndMLkit.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,13 +20,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List pages = [Body(), Scan(), Saved()];
+  List pages = [const Body(), null, Body()];
 
   int currentIndex = 0;
 
   void onTap(int index) {
     setState(() {
       currentIndex = index;
+      if (index == 1) {
+        currentIndex = 0;
+      }
     });
   }
 
@@ -32,20 +38,20 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: pages.elementAt(currentIndex),
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         notchMargin: 0.01,
         clipBehavior: Clip.antiAlias,
         child: Container(
           height: 60,
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: white,
                 border:
                     Border(top: BorderSide(color: extraLightGrey, width: 0.5))),
             child: BottomNavigationBar(
               onTap: onTap,
               currentIndex: currentIndex,
-              items: <BottomNavigationBarItem>[
+              items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                     icon: Icon(
                       Icons.home_outlined,
@@ -69,16 +75,17 @@ class _HomeState extends State<Home> {
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
       floatingActionButton: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: FloatingActionButton(
           hoverElevation: 10,
           splashColor: lightGrey,
           backgroundColor: lightOrange,
           tooltip: 'Scan',
           elevation: 4,
-          child: Icon(Icons.photo_camera),
+          child: const Icon(Icons.photo_camera),
           onPressed: () => setState(() {
             currentIndex = 1;
+            getIngredients(context);
           }),
         ),
       ),
@@ -86,11 +93,35 @@ class _HomeState extends State<Home> {
   }
 }
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({super.key});
 
   @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  List meals = [];
+  bool isLoading = true;
+  //get widht screen from mediaquery
+
+  @override
+  void initState() {
+    super.initState();
+    isLoading = true;
+    getRecipesByIngre("Rice").then((value) {
+      setState(() {
+        meals = value;
+        isLoading = false;
+        print(meals.toString());
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double widthScreen = MediaQuery.of(context).size.width;
+    print("Width: $widthScreen");
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -110,8 +141,8 @@ class Body extends StatelessWidget {
                         "Hello, John!",
                         style: TextStyle(color: lightGrey, fontSize: 16),
                       ),
-                      const SizedBox(
-                        width: 300,
+                      SizedBox(
+                        width: widthScreen * 0.7,
                         child: AutoSizeText(
                           "Unleash your inner chef with Cookuy",
                           maxLines: 2,
@@ -138,30 +169,35 @@ class Body extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 120,
-                    width: 180,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: borderColor, width: 1)),
-                    padding: const EdgeInsets.all(defaultPadding),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/scan.svg",
-                          height: 30,
-                          width: 30,
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          "Scan",
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: semiBlack,
-                              fontWeight: FontWeight.w700),
-                        )
-                      ],
+                  GestureDetector(
+                    onTap: () {
+                      getIngredients(context);
+                    },
+                    child: Container(
+                      height: 120,
+                      width: (widthScreen - 72) / 2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: borderColor, width: 1)),
+                      padding: const EdgeInsets.all(defaultPadding),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/icons/scan.svg",
+                            height: 30,
+                            width: 30,
+                          ),
+                          const SizedBox(height: 10),
+                          const Text(
+                            "Scan",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: semiBlack,
+                                fontWeight: FontWeight.w700),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   InkWell(
@@ -169,13 +205,14 @@ class Body extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ResumeIngredient(
+                              builder: (context) =>
+                                  ResumeIngredientWithoutImage(
                                     meals: [],
                                   )));
                     },
                     child: Container(
                       height: 120,
-                      width: 180,
+                      width: (widthScreen - 72) / 2,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: borderColor, width: 1)),
@@ -219,7 +256,9 @@ class Body extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => AllRcipe())));
+                              builder: ((context) => const AllRcipe(
+                                    ingredients: ["egg"],
+                                  ))));
                     },
                     child: const Text(
                       "See All",
@@ -231,19 +270,25 @@ class Body extends StatelessWidget {
                   ),
                 ],
               ),
-              ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Detail()));
+              isLoading
+                  ? Container()
+                  : ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 3,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Detail(
+                                            idmeals: meals[index],
+                                          )));
+                            },
+                            child: RecipeCard(meals[index], context));
                       },
-                      child: RecipeCard());
-                },
-              )
+                    )
             ],
           ),
         ),

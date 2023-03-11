@@ -1,10 +1,21 @@
+import 'package:cookuy/views/allRecipe.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_mlkit_object_detection/google_mlkit_object_detection.dart';
+//import iu
+import 'dart:ui' as ui;
 import '../constants.dart';
+import '../objectPainter.dart';
 
 class ResumeIngredient extends StatefulWidget {
-  final List meals;
-  const ResumeIngredient({super.key, required this.meals});
+  List meals;
+
+  ui.Image imageAfter;
+  List<DetectedObject>? objectss;
+  ResumeIngredient(
+      {super.key,
+      required this.meals,
+      required this.imageAfter,
+      required this.objectss});
 
   @override
   State<ResumeIngredient> createState() => _ResumeIngredientState();
@@ -14,6 +25,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
   late List myFocusNode = [];
 
   //init state
+  @override
   void initState() {
     super.initState();
     myFocusNode = List.generate(widget.meals.length, (index) => FocusNode());
@@ -46,10 +58,10 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                     color: lightOrange,
                     borderRadius: BorderRadius.circular(20),
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
                       child: Row(
-                        children: [
+                        children: const [
                           Icon(Icons.keyboard_arrow_left, color: white),
                           SizedBox(width: 3),
                           Text(
@@ -65,8 +77,8 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 "Lets cook with your available ingredients",
                 style: TextStyle(
                   color: semiBlack,
@@ -74,7 +86,21 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                   fontWeight: FontWeight.w800,
                 ),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: FittedBox(
+                  child: SizedBox(
+                    width: widget.imageAfter.width.toDouble(),
+                    height: widget.imageAfter.height.toDouble(),
+                    child: CustomPaint(
+                      painter:
+                          ObjectPainter(widget.imageAfter, widget.objectss!),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
               Container(
                 width: double.infinity,
                 height: 50,
@@ -84,10 +110,10 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
-                  children: [
+                  children: const [
                     //icon info
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Icon(
                         Icons.info_outline_rounded,
                         color: Colors.black38,
@@ -106,7 +132,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
               ),
               ListView.builder(
                 itemCount: widget.meals.length,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   //list tile for each ingredient
@@ -122,7 +148,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                     title: TextFormField(
                       initialValue: widget.meals[index],
                       focusNode: myFocusNode[index],
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
                       // onTapOutside: (event) {
@@ -133,13 +159,15 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                       //         .attachedContext!
                       //         .readState()! as String;
                       //     myFocusNode[index].unfocus();
+                      //     print(widget.meals.toString());
                       //   });
                       // },
-                      // onChanged: (value) {
-                      //   setState(() {
-                      //     widget.meals[index] = value;
-                      //   });
-                      // },
+                      onChanged: (value) {
+                        setState(() {
+                          widget.meals[index] = value;
+                          print(widget.meals.toString());
+                        });
+                      },
                     ),
                     trailing: //delete iconbuttoon
                         IconButton(
@@ -149,7 +177,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                           myFocusNode.removeAt(index);
                         });
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.delete_outline_rounded,
                         color: Colors.grey,
                       ),
@@ -158,7 +186,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                 },
               ),
               // create add button to add more ingredient with full width of screen
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               InkWell(
                 //outline border
                 onTap: () {
@@ -177,7 +205,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                     border: Border.all(color: Colors.black87),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Add more ingredients",
                       style: TextStyle(
@@ -189,10 +217,29 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                   ),
                 ),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               InkWell(
                 //outline border
-                onTap: () {},
+                onTap: () {
+                  //check if meals is empty
+                  if (widget.meals.isEmpty) {
+                    //show snackbar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please add at least one ingredient"),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    //go to next page
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AllRcipe(
+                                  ingredients: widget.meals,
+                                )));
+                  }
+                },
                 child: Container(
                   width: double.infinity,
                   height: 50,
@@ -201,7 +248,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                     color: lightOrange,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Next",
                       style: TextStyle(

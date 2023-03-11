@@ -24,10 +24,10 @@ class RecomRecipe extends StatelessWidget {
                     color: lightOrange,
                     borderRadius: BorderRadius.circular(20),
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
                       child: Row(
-                        children: [
+                        children: const [
                           Icon(Icons.keyboard_arrow_left, color: white),
                           SizedBox(width: 3),
                           Text(
@@ -43,8 +43,8 @@ class RecomRecipe extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 "So, here are recipe recommendations that you can try with your cooking ingredients...",
                 style: TextStyle(
                   color: semiBlack,
@@ -54,7 +54,7 @@ class RecomRecipe extends StatelessWidget {
               ),
               ListView.builder(
                 itemCount: 4,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return RecipeCardLong();
@@ -69,7 +69,7 @@ class RecomRecipe extends StatelessWidget {
 
   Container RecipeCardLong() {
     return Container(
-      margin: EdgeInsets.only(bottom: defaultPadding),
+      margin: const EdgeInsets.only(bottom: defaultPadding),
       height: 150,
       width: double.infinity,
       child: Material(
@@ -81,15 +81,15 @@ class RecomRecipe extends StatelessWidget {
               height: 150,
               width: 160,
               decoration: BoxDecoration(
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                         color: Color.fromARGB(255, 203, 203, 203),
                         spreadRadius: 1,
                         blurRadius: 5,
-                        offset: const Offset(0, 2)),
+                        offset: Offset(0, 2)),
                   ],
                   borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                       image: AssetImage("assets/images/fried-rice.jpg"),
                       fit: BoxFit.cover)),
             ),
@@ -115,8 +115,8 @@ class RecomRecipe extends StatelessWidget {
                   //     )
                   //   ],
                   // ),
-                  SizedBox(height: 5),
-                  SizedBox(
+                  const SizedBox(height: 5),
+                  const SizedBox(
                     width: 160,
                     child: AutoSizeText(
                       "Fried Rice with Special Egg",
@@ -129,12 +129,12 @@ class RecomRecipe extends StatelessWidget {
                           fontWeight: FontWeight.w700),
                     ),
                   ),
-                  Text("Seafood",
+                  const Text("Seafood",
                       style: TextStyle(
                           color: lightGrey,
                           fontSize: 14,
                           fontWeight: FontWeight.w500)),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   SizedBox(
                     height: 20,
                     child: ListView.builder(
@@ -143,11 +143,11 @@ class RecomRecipe extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Container(
-                          margin: EdgeInsets.only(right: 2),
+                          margin: const EdgeInsets.only(right: 2),
                           child: Material(
                             color: lightOrange,
                             borderRadius: BorderRadius.circular(5),
-                            child: Padding(
+                            child: const Padding(
                               padding:
                                   EdgeInsets.only(bottom: 5, left: 7, right: 7),
                               child: Text(
