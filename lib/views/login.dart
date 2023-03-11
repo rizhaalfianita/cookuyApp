@@ -9,25 +9,30 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: defaultPadding, vertical: defaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 95),
             Center(
-                child: Image.asset(
-              "assets/images/logo.png",
-              width: 130,
-            )),
-            const SizedBox(height: 20),
-            const Text(
-              "Sign In",
-              style: TextStyle(
-                  color: semiBlack, fontWeight: FontWeight.w800, fontSize: 30),
+              child: Text(
+                "Cookuy",
+                style: TextStyle(
+                    color: lightOrange,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 48),
+              ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 42),
+            const Text(
+              "Login to your Acccount",
+              style: TextStyle(
+                  color: semiBlack, fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+            const SizedBox(height: 18),
             Container(
               width: MediaQuery.of(context).size.width * 1,
               child: TextFormField(
@@ -37,19 +42,15 @@ class Login extends StatelessWidget {
                       borderSide: BorderSide(color: extraLightGrey)),
                   fillColor: extraLightGrey,
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(8),
                       borderSide:
                           const BorderSide(color: extraLightGrey, width: 3)),
                   hintText: 'Email Address',
-                  prefixIcon: const Icon(
-                    Icons.email,
-                    color: lightGrey,
-                  ),
-                  hintStyle: const TextStyle(color: lightGrey, fontSize: 16),
+                  hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
                 ),
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 18),
             Container(
               width: MediaQuery.of(context).size.width * 1,
               child: TextFormField(
@@ -59,21 +60,17 @@ class Login extends StatelessWidget {
                       borderSide: BorderSide(color: extraLightGrey)),
                   fillColor: extraLightGrey,
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(8),
                       borderSide:
                           const BorderSide(color: extraLightGrey, width: 3)),
                   hintText: 'Password',
-                  prefixIcon: const Icon(
-                    Icons.key,
-                    color: lightGrey,
-                  ),
-                  hintStyle: const TextStyle(color: lightGrey, fontSize: 16),
+                  hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
                 ),
               ),
             ),
             const SizedBox(height: 20),
             SizedBox(
-              height: 54,
+              height: 52,
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
@@ -83,23 +80,17 @@ class Login extends StatelessWidget {
                 child: const Text(
                   "Sign In",
                   style: TextStyle(
-                      color: white, fontSize: 17, fontWeight: FontWeight.bold),
+                      color: white, fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 style: ElevatedButton.styleFrom(
                     primary: lightOrange,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(8),
                     )),
               ),
             ),
-            const SizedBox(height: 30),
-            Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(color: extraLightGrey, width: 2))),
-            ),
+            const SizedBox(height: 283),
             const SizedBox(
               height: defaultPadding,
             ),
