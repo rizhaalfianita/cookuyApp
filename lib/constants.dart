@@ -10,4 +10,4 @@ const semiBlack = Color(0XFF383838);
 const darkOrange = Color(0xFF977819);
 const extraLightOrange = Color(0xFFFDE08A);
 
-const defaultPadding = 20.0;
+const defaultPadding = 24.0;
