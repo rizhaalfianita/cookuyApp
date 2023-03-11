@@ -63,7 +63,8 @@ class _DetailState extends State<Detail> {
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(
-                              horizontal: defaultPadding, vertical: 20),
+                              horizontal: defaultPadding,
+                              vertical: defaultPadding),
                           child: Material(
                             color: lightOrange,
                             borderRadius: BorderRadius.circular(50),
@@ -101,7 +102,7 @@ class _DetailState extends State<Detail> {
                                 Text(
                                   meals.strArea as String,
                                   style: const TextStyle(
-                                      color: lightGrey, fontSize: 17),
+                                      color: lightGrey, fontSize: 16),
                                 ),
                               ],
                             ),
@@ -110,13 +111,13 @@ class _DetailState extends State<Detail> {
                               borderRadius: BorderRadius.circular(10),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 5),
+                                    horizontal: defaultPadding, vertical: 5),
                                 child: Text(
                                   meals.strCategory as String,
                                   style: const TextStyle(
                                       color: white,
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 17),
+                                      fontSize: 16),
                                 ),
                               ),
                             ),
@@ -127,16 +128,16 @@ class _DetailState extends State<Detail> {
                           meals.strMeal as String,
                           style: const TextStyle(
                             color: semiBlack,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                             fontSize: 24,
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 20),
                         const Text(
                           "Ingredients",
                           style: TextStyle(
                             color: semiBlack,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w500,
                             fontSize: 20,
                           ),
                         ),
@@ -162,7 +163,7 @@ class _DetailState extends State<Detail> {
                                     meals.ingredients![index],
                                     style: const TextStyle(
                                       color: semiBlack,
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w400,
                                       fontSize: 18,
                                     ),
                                   ),
@@ -193,7 +194,7 @@ class _DetailState extends State<Detail> {
                                     meals.measures![index],
                                     style: const TextStyle(
                                       color: semiBlack,
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w400,
                                       fontSize: 18,
                                     ),
                                   ),
@@ -217,7 +218,7 @@ class _DetailState extends State<Detail> {
                           textAlign: TextAlign.justify,
                           style: const TextStyle(
                             color: semiBlack,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             fontSize: 18,
                           ),
                         ),

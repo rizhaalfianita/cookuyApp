@@ -6,6 +6,7 @@ import 'package:cookuy/views/components/customWidget.dart';
 import 'package:cookuy/views/detail.dart';
 import 'package:cookuy/views/resumeIngredient.dart';
 import 'package:cookuy/views/resumeIngredientWithoutImage.dart';
+import 'package:cookuy/views/saved.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 //import ui
@@ -25,7 +26,7 @@ class _HomeState extends State<Home> {
 
   int currentIndex = 0;
 
-  List<Widget> _listScreen = [const Home(), const Home()];
+  List<Widget> _listScreen = [const Home(), const Saved()];
   PageController _pageController = PageController();
   void onTap(int index) {
     setState(() {

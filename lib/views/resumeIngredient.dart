@@ -1,4 +1,5 @@
 import 'package:cookuy/views/allRecipe.dart';
+import 'package:cookuy/views/components/customWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_object_detection/google_mlkit_object_detection.dart';
 //import iu
@@ -210,7 +211,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                       "Add more ingredients",
                       style: TextStyle(
                         color: Colors.black87,
-                        fontSize: 17,
+                        fontSize: 16,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -218,11 +219,8 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                 ),
               ),
               const SizedBox(height: 12),
-              InkWell(
-                //outline border
-                onTap: () {
-                  //check if meals is empty
-                  if (widget.meals.isEmpty) {
+              ButtonCustom(context, "Next", double.infinity, (){
+                if (widget.meals.isEmpty) {
                     //show snackbar
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -239,27 +237,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                                   ingredients: widget.meals,
                                 )));
                   }
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: 50,
-                  //fill color rounder border
-                  decoration: BoxDecoration(
-                    color: lightOrange,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Next",
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              }),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:cookuy/constants.dart';
+import 'package:cookuy/controller/recipesByIngreController.dart';
 import 'package:cookuy/views/components/customWidget.dart';
 import 'package:cookuy/views/detail.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,20 @@ class Saved extends StatefulWidget {
 
 class _SavedState extends State<Saved> {
   List meals = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    isLoading = true;
+    getRecipesByIngre("Rice").then((value) {
+      setState(() {
+        meals = value;
+        isLoading = false;
+        print(meals.toString());
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,28 +44,27 @@ class _SavedState extends State<Saved> {
                       fontSize: 22,
                       fontWeight: FontWeight.w700)),
               GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 4,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 24,
-                        crossAxisSpacing: 16,
-                      ),
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Detail(
-                                            idmeals: meals[index],
-                                          )));
-                            },
-                            child: RecipeCard(meals[index], context));
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 4,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 24,
+                  crossAxisSpacing: 16,
+                ),
+                itemBuilder: (context, index) {
+                  return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Detail(
+                                      idmeals: meals[index],
+                                    )));
                       },
-                    )
+                      child: RecipeCard(meals[index], context));
+                },
+              )
             ],
           ),
         ),
