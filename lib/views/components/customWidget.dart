@@ -3,6 +3,7 @@ import 'package:cookuy/constants.dart';
 import 'package:cookuy/models/recipesByIngre.dart';
 import 'package:cookuy/views/detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 Widget RecipeCard(Meals2 meals, context) {
   return GestureDetector(
@@ -14,8 +15,7 @@ Widget RecipeCard(Meals2 meals, context) {
           ));
     },
     child: Container(
-      margin: const EdgeInsets.only(bottom: defaultPadding),
-      height: 300,
+      height: 250,
       width: double.infinity,
       child: Material(
         elevation: 3,
@@ -23,7 +23,7 @@ Widget RecipeCard(Meals2 meals, context) {
         child: Column(
           children: [
             Container(
-              height: 200,
+              height: 112,
               decoration: BoxDecoration(
                   boxShadow: const [
                     BoxShadow(
@@ -37,9 +37,9 @@ Widget RecipeCard(Meals2 meals, context) {
                       image: NetworkImage(meals.strMealThumb as String),
                       fit: BoxFit.cover)),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -47,16 +47,17 @@ Widget RecipeCard(Meals2 meals, context) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width -
-                            defaultPadding * 7,
-                        child: AutoSizeText(
-                          meals.strMeal as String,
-                          style: const TextStyle(
-                              color: semiBlack,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
-                          overflow: TextOverflow.clip,
-                          maxLines: 3,
+                        width: 154,
+                        child: Center(
+                          child: AutoSizeText(
+                            meals.strMeal as String,
+                            style: const TextStyle(
+                                color: semiBlack,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
                         ),
                       ),
                       // Material(
@@ -160,6 +161,86 @@ Widget TextFieldModel(
             borderSide: const BorderSide(color: white, width: 3)),
         hintText: text,
         hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
+      ),
+    ),
+  );
+}
+
+Widget TextFieldModelPw(
+    BuildContext context, TextEditingController controller, String text) {
+  return Container(
+    width: MediaQuery.of(context).size.width * 1,
+    decoration: BoxDecoration(boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.05),
+        spreadRadius: 0,
+        blurRadius: 10,
+        offset: Offset(2, 4), // changes position of shadow
+      ),
+    ]),
+    child: TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        filled: true,
+        focusedBorder:
+            const OutlineInputBorder(borderSide: BorderSide(color: white)),
+        fillColor: white,
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: white, width: 3)),
+        hintText: text,
+        hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
+      ),
+    ),
+  );
+}
+
+Widget OptionBox(double widthScreen, String icon, String text) {
+  return Container(
+    height: 122,
+    width: (widthScreen - 72) / 2,
+    decoration: BoxDecoration(
+      color: extraLightGrey,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    padding: const EdgeInsets.all(defaultPadding),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset(
+          icon,
+          height: 32,
+          width: 32,
+        ),
+        const SizedBox(height: 10),
+        Text(
+          text,
+          style: TextStyle(
+              fontSize: 16, color: semiBlack, fontWeight: FontWeight.w600),
+        )
+      ],
+    ),
+  );
+}
+
+Widget TopSearch(BuildContext context) {
+  return Container(
+    width: MediaQuery.of(context).size.width * 1,
+    child: TextFormField(
+      decoration: InputDecoration(
+        filled: true,
+        focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: extraLightGrey)),
+        fillColor: extraLightGrey,
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: extraLightGrey, width: 3)),
+        hintText: 'What do you want to eat?',
+        prefixIcon: const Icon(
+          Icons.search,
+          color: lightGrey,
+        ),
+        hintStyle: const TextStyle(color: lightGrey, fontSize: 16),
       ),
     ),
   );

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cookuy/constants.dart';
 import 'package:cookuy/views/allRecipe.dart';
 import 'package:cookuy/views/components/customWidget.dart';
@@ -20,10 +21,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List pages = [const Body(), null, Body()];
+  List pages = [const Body(), null, const Body()];
 
   int currentIndex = 0;
 
+  List<Widget> _listScreen = [const Home(), const Home()];
+  PageController _pageController = PageController();
   void onTap(int index) {
     setState(() {
       currentIndex = index;
@@ -37,57 +40,28 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages.elementAt(currentIndex),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 0.01,
-        clipBehavior: Clip.antiAlias,
-        child: Container(
-          height: 60,
-          child: Container(
-            decoration: const BoxDecoration(
-                color: white,
-                border:
-                    Border(top: BorderSide(color: extraLightGrey, width: 0.5))),
-            child: BottomNavigationBar(
-              onTap: onTap,
-              currentIndex: currentIndex,
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.home_outlined,
-                      size: 24,
-                    ),
-                    label: 'Home'),
-                BottomNavigationBarItem(
-                    activeIcon: null, icon: Icon(null), label: 'Scan'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.bookmark_border_outlined, size: 24),
-                    label: 'Feed'),
-              ],
-              selectedItemColor: lightOrange,
-              unselectedItemColor: lightGrey,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-            ),
+      bottomNavigationBar: BottomNavyBar(
+        selectedIndex: currentIndex,
+        showElevation: true,
+        onItemSelected: (index) {
+          setState(() => currentIndex = index);
+          _pageController.jumpToPage(index);
+        },
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        items: [
+          BottomNavyBarItem(
+            icon: const Icon(Icons.home_rounded),
+            title: const Text('Home'),
+            activeColor: lightOrange,
+            textAlign: TextAlign.center,
           ),
-        ),
-      ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FloatingActionButton(
-          hoverElevation: 10,
-          splashColor: lightGrey,
-          backgroundColor: lightOrange,
-          tooltip: 'Scan',
-          elevation: 4,
-          child: const Icon(Icons.photo_camera),
-          onPressed: () => setState(() {
-            currentIndex = 1;
-            getIngredients(context);
-          }),
-        ),
+          BottomNavyBarItem(
+            icon: const Icon(Icons.bookmark_rounded),
+            title: const Text('Bookmark'),
+            activeColor: lightOrange,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
@@ -141,16 +115,17 @@ class _BodyState extends State<Body> {
                         "Hello, John!",
                         style: TextStyle(color: lightGrey, fontSize: 16),
                       ),
+                      const SizedBox(height: 4),
                       SizedBox(
                         width: widthScreen * 0.7,
-                        child: AutoSizeText(
+                        child: const AutoSizeText(
                           "Unleash your inner chef with Cookuy",
                           maxLines: 2,
-                          minFontSize: 24,
+                          minFontSize: 22,
                           style: TextStyle(
                               color: semiBlack,
                               fontSize: 24,
-                              fontWeight: FontWeight.w700),
+                              fontWeight: FontWeight.w600),
                         ),
                       )
                     ],
@@ -162,10 +137,10 @@ class _BodyState extends State<Body> {
                 ],
               ),
               const SizedBox(
-                height: defaultPadding,
+                height: 16,
               ),
               TopSearch(context),
-              const SizedBox(height: defaultPadding),
+              const SizedBox(height: 28),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -173,73 +148,24 @@ class _BodyState extends State<Body> {
                     onTap: () {
                       getIngredients(context);
                     },
-                    child: Container(
-                      height: 120,
-                      width: (widthScreen - 72) / 2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: borderColor, width: 1)),
-                      padding: const EdgeInsets.all(defaultPadding),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            "assets/icons/scan.svg",
-                            height: 30,
-                            width: 30,
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            "Scan",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: semiBlack,
-                                fontWeight: FontWeight.w700),
-                          )
-                        ],
-                      ),
-                    ),
+                    child:
+                        OptionBox(widthScreen, "assets/icons/scan.svg", "Scan"),
                   ),
                   InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ResumeIngredientWithoutImage(
-                                    meals: [],
-                                  )));
-                    },
-                    child: Container(
-                      height: 120,
-                      width: (widthScreen - 72) / 2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: borderColor, width: 1)),
-                      padding: const EdgeInsets.all(defaultPadding),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            "assets/icons/add.svg",
-                            height: 30,
-                            width: 30,
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            "Add Manual",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: semiBlack,
-                                fontWeight: FontWeight.w700),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ResumeIngredientWithoutImage(
+                                      meals: [],
+                                    )));
+                      },
+                      child: OptionBox(
+                          widthScreen, "assets/icons/add.svg", "Add Manual"))
                 ],
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 28),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 // ignore: prefer_const_literals_to_create_immutables
@@ -248,8 +174,8 @@ class _BodyState extends State<Body> {
                     "Recommended recipe",
                     style: TextStyle(
                         color: semiBlack,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
                   ),
                   InkWell(
                     onTap: () {
@@ -265,17 +191,23 @@ class _BodyState extends State<Body> {
                       style: TextStyle(
                           color: lightOrange,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
               ),
               isLoading
                   ? Container()
-                  : ListView.builder(
+                  : GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 3,
+                      itemCount: 4,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 24,
+                        crossAxisSpacing: 16,
+                      ),
                       itemBuilder: (context, index) {
                         return InkWell(
                             onTap: () {
@@ -291,29 +223,6 @@ class _BodyState extends State<Body> {
                     )
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget TopSearch(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 1,
-      child: TextFormField(
-        decoration: InputDecoration(
-          filled: true,
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: extraLightGrey)),
-          fillColor: extraLightGrey,
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: extraLightGrey, width: 3)),
-          hintText: 'What do you want to eat?',
-          prefixIcon: const Icon(
-            Icons.search,
-            color: lightGrey,
-          ),
-          hintStyle: const TextStyle(color: lightGrey, fontSize: 16),
         ),
       ),
     );

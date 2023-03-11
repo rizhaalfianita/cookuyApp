@@ -11,9 +11,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool isPasswordVisible = true;
+
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPass = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +46,12 @@ class _LoginState extends State<Login> {
             TextFieldModel(
               context,
               controllerEmail,
-              "Email Address"
+              "Email Address",
             ),
             const SizedBox(height: 18),
-            TextFieldModel(context, controllerPass, "Password"),
+            TextFieldModelPw(context, controllerPass, "Password"),
             const SizedBox(height: 20),
-            ButtonCustom(context, "Sign In", double.infinity, ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Register()))),
+            ButtonCustom(context, "Sign In", double.infinity, ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()))),
             Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
