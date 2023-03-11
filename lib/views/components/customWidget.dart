@@ -84,3 +84,26 @@ Widget RecipeCard() {
     ),
   );
 }
+
+Widget ButtonCustom(BuildContext context, String text, double widht, Future nav) {
+  return SizedBox(
+    width: widht,
+    height: 50,
+    child: ElevatedButton(
+      onPressed: () {
+        nav;
+      },
+      child: Text(
+        text,
+        style:
+            TextStyle(fontWeight: FontWeight.w600, color: white, fontSize: 16),
+      ),
+      style: ElevatedButton.styleFrom(
+          primary: lightOrange,
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          )),
+    ),
+  );
+}

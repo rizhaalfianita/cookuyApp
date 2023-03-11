@@ -1,12 +1,18 @@
+import 'package:cookuy/views/landing.dart';
 import 'package:cookuy/views/register.dart';
 import 'package:cookuy/firebase_options.dart';
+import 'package:cookuy/views/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-Future<void> main() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+// Future<void> main() async {
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
+//   runApp(MyApp());
+// }
+
+void main() {
   runApp(MyApp());
 }
 
@@ -18,8 +24,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: "Nunito"),
-      home: const Register(),
+      theme: ThemeData(fontFamily: "Poppins"),
+      home: const Landing(),
     );
   }
 }
