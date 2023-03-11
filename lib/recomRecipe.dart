@@ -17,27 +17,17 @@ class RecomRecipe extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {},
-                child: SizedBox(
-                  width: 160,
+                child: Container(
                   child: Material(
-                    elevation: 1,
                     color: lightOrange,
-                    borderRadius: BorderRadius.circular(20),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.keyboard_arrow_left, color: white),
-                          SizedBox(width: 3),
-                          Text(
-                            "Back to home",
-                            style: TextStyle(
-                              color: white,
-                              fontSize: 17,
-                            ),
-                          )
-                        ],
+                    borderRadius: BorderRadius.circular(50),
+                    elevation: 1,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                      child: Icon(
+                        Icons.keyboard_arrow_left,
+                        color: white,
+                        size: 28,
                       ),
                     ),
                   ),
@@ -49,7 +39,7 @@ class RecomRecipe extends StatelessWidget {
                 style: TextStyle(
                   color: semiBlack,
                   fontSize: 19,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               ListView.builder(
@@ -69,8 +59,8 @@ class RecomRecipe extends StatelessWidget {
 
   Container RecipeCardLong() {
     return Container(
-      margin: const EdgeInsets.only(bottom: defaultPadding),
-      height: 150,
+      margin: const EdgeInsets.only(bottom: 16),
+      height: 120,
       width: double.infinity,
       child: Material(
         elevation: 3,
@@ -78,7 +68,7 @@ class RecomRecipe extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              height: 150,
+              height: 120,
               width: 160,
               decoration: BoxDecoration(
                   boxShadow: const [
@@ -95,29 +85,12 @@ class RecomRecipe extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: defaultPadding, vertical: defaultPadding),
+                  horizontal: defaultPadding, vertical: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Row(
-                  //   children: [
-                  //     Icon(
-                  //       Icons.location_pin,
-                  //       color: lightOrange,
-                  //       size: 13,
-                  //     ),
-                  //     SizedBox(width: 3),
-                  //     Text(
-                  //       "Indonesia",
-                  //       style: TextStyle(
-                  //           color: lightOrange,
-                  //           fontWeight: FontWeight.w500),
-                  //     )
-                  //   ],
-                  // ),
-                  const SizedBox(height: 5),
                   const SizedBox(
-                    width: 160,
+                    width: 150,
                     child: AutoSizeText(
                       "Fried Rice with Special Egg",
                       maxLines: 3,
@@ -129,37 +102,38 @@ class RecomRecipe extends StatelessWidget {
                           fontWeight: FontWeight.w700),
                     ),
                   ),
+                  SizedBox(height: 8),
                   const Text("Seafood",
                       style: TextStyle(
                           color: lightGrey,
                           fontSize: 14,
                           fontWeight: FontWeight.w500)),
                   const SizedBox(height: 10),
-                  SizedBox(
-                    height: 20,
-                    child: ListView.builder(
-                      itemCount: 3,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.only(right: 2),
-                          child: Material(
-                            color: lightOrange,
-                            borderRadius: BorderRadius.circular(5),
-                            child: const Padding(
-                              padding:
-                                  EdgeInsets.only(bottom: 5, left: 7, right: 7),
-                              child: Text(
-                                "Onion",
-                                style: TextStyle(color: white),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  )
+                  // SizedBox(
+                  //   height: 20,
+                  //   child: ListView.builder(
+                  //     itemCount: 3,
+                  //     shrinkWrap: true,
+                  //     scrollDirection: Axis.horizontal,
+                  //     itemBuilder: (context, index) {
+                  //       return Container(
+                  //         margin: const EdgeInsets.only(right: 2),
+                  //         child: Material(
+                  //           color: lightOrange,
+                  //           borderRadius: BorderRadius.circular(5),
+                  //           child: const Padding(
+                  //             padding:
+                  //                 EdgeInsets.only(bottom: 5, left: 7, right: 7),
+                  //             child: Text(
+                  //               "Onion",
+                  //               style: TextStyle(color: white),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       );
+                  //     },
+                  //   ),
+                  // )
                 ],
               ),
             )

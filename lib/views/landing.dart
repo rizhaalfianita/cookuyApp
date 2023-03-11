@@ -1,5 +1,6 @@
 import 'package:cookuy/constants.dart';
 import 'package:cookuy/views/components/customWidget.dart';
+import 'package:cookuy/views/login.dart';
 import 'package:cookuy/views/register.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,7 @@ class Landing extends StatelessWidget {
               "Get Started",
               150,
               () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Register()))),
+                  MaterialPageRoute(builder: (context) => Login()))),
         ),
       ],
     ));

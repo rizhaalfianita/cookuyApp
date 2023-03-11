@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cookuy/constants.dart';
 import 'package:cookuy/views/home.dart';
+import 'package:cookuy/views/landing.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
@@ -12,14 +13,14 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Timer(
-  //       const Duration(seconds: 5),
-  //       () => Navigator.pushReplacement(
-  //           context, MaterialPageRoute(builder: (context) => Home())));
-  // }
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+        const Duration(seconds: 5),
+        () => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Landing())));
+  }
 
   @override
   Widget build(BuildContext context) {

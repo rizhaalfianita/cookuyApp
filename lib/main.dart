@@ -1,6 +1,7 @@
 import 'package:cookuy/recomRecipe.dart';
 import 'package:cookuy/views/landing.dart';
 import 'package:cookuy/views/saved.dart';
+import 'package:cookuy/views/splash.dart';
 import 'package:flutter/material.dart';
 
 // Future<void> main() async {
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: "Poppins"),
-      home: const RecomRecipe(),
+      home: const Splash(),
     );
   }
 }
