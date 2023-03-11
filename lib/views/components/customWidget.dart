@@ -107,10 +107,19 @@ Widget RecipeCard(Meals2 meals, context) {
   );
 }
 
-Widget ButtonCustom(BuildContext context, String text, double widht, VoidCallback action) {
-  return SizedBox(
-    width: widht,
+Widget ButtonCustom(
+    BuildContext context, String text, double width, VoidCallback action) {
+  return Container(
+    width: width,
     height: 50,
+    decoration: BoxDecoration(boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.08),
+        spreadRadius: 4,
+        blurRadius: 15,
+        offset: Offset(0, 8), // changes position of shadow
+      ),
+    ]),
     child: ElevatedButton(
       onPressed: action,
       child: Text(
@@ -120,7 +129,6 @@ Widget ButtonCustom(BuildContext context, String text, double widht, VoidCallbac
       ),
       style: ElevatedButton.styleFrom(
           primary: lightOrange,
-          elevation: 3,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           )),
@@ -132,16 +140,24 @@ Widget TextFieldModel(
     BuildContext context, TextEditingController controller, String text) {
   return Container(
     width: MediaQuery.of(context).size.width * 1,
+    decoration: BoxDecoration(boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.05),
+        spreadRadius: 0,
+        blurRadius: 10,
+        offset: Offset(2, 4), // changes position of shadow
+      ),
+    ]),
     child: TextFormField(
       controller: controller,
       decoration: InputDecoration(
         filled: true,
-        focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: extraLightGrey)),
-        fillColor: extraLightGrey,
+        focusedBorder:
+            const OutlineInputBorder(borderSide: BorderSide(color: white)),
+        fillColor: white,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: extraLightGrey, width: 3)),
+            borderSide: const BorderSide(color: white, width: 3)),
         hintText: text,
         hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
       ),

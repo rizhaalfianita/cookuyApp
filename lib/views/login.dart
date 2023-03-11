@@ -50,27 +50,7 @@ class _LoginState extends State<Login> {
             const SizedBox(height: 18),
             TextFieldModel(context, controllerPass, "Password"),
             const SizedBox(height: 20),
-            SizedBox(
-              height: 52,
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Home()));
-                },
-                child: const Text(
-                  "Sign In",
-                  style: TextStyle(
-                      color: white, fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                style: ElevatedButton.styleFrom(
-                    primary: lightOrange,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    )),
-              ),
-            ),
+            ButtonCustom(context, "Sign In", double.infinity, ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Register()))),
             Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
