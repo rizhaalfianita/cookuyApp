@@ -99,7 +99,7 @@ class Register extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Login()));
+                      MaterialPageRoute(builder: (context) => Login()));
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: lightOrange,
@@ -134,7 +134,7 @@ class Register extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Login()));
+                        MaterialPageRoute(builder: (context) => Login()));
                   },
                   child: const Text(
                     "Sign In",

@@ -107,14 +107,12 @@ Widget RecipeCard(Meals2 meals, context) {
   );
 }
 
-Widget ButtonCustom(BuildContext context, String text, double widht, Future nav) {
+Widget ButtonCustom(BuildContext context, String text, double widht, VoidCallback action) {
   return SizedBox(
     width: widht,
     height: 50,
     child: ElevatedButton(
-      onPressed: () {
-        nav;
-      },
+      onPressed: action,
       child: Text(
         text,
         style:
@@ -126,6 +124,27 @@ Widget ButtonCustom(BuildContext context, String text, double widht, Future nav)
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           )),
+    ),
+  );
+}
+
+Widget TextFieldModel(
+    BuildContext context, TextEditingController controller, String text) {
+  return Container(
+    width: MediaQuery.of(context).size.width * 1,
+    child: TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        filled: true,
+        focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: extraLightGrey)),
+        fillColor: extraLightGrey,
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: extraLightGrey, width: 3)),
+        hintText: text,
+        hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
+      ),
     ),
   );
 }
