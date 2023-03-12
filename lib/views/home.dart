@@ -7,6 +7,7 @@ import 'package:cookuy/views/detail.dart';
 import 'package:cookuy/views/resumeIngredient.dart';
 import 'package:cookuy/views/resumeIngredientWithoutImage.dart';
 import 'package:cookuy/views/saved.dart';
+import 'package:cookuy/views/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 //import ui
@@ -140,7 +141,10 @@ class _BodyState extends State<Body> {
               const SizedBox(
                 height: 16,
               ),
-              TopSearch(context),
+              TopSearch(context, () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Search()));
+              }),
               const SizedBox(height: 28),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,8 +210,9 @@ class _BodyState extends State<Body> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisSpacing: 24,
-                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 24,
+                        childAspectRatio: 0.8,
                       ),
                       itemBuilder: (context, index) {
                         return InkWell(

@@ -1,9 +1,34 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cookuy/constants.dart';
+import 'package:cookuy/controller/recipesByIngreController.dart';
+import 'package:cookuy/models/recipesByIngre.dart';
+import 'package:cookuy/views/detail.dart';
 import 'package:flutter/material.dart';
 
-class RecomRecipe extends StatelessWidget {
-  const RecomRecipe({super.key});
+class RecomRecipe extends StatefulWidget {
+  final List ingredients;
+  const RecomRecipe({super.key, required this.ingredients});
+
+  @override
+  State<RecomRecipe> createState() => _RecomRecipeState();
+}
+
+class _RecomRecipeState extends State<RecomRecipe> {
+  List meals = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    isLoading = true;
+    getRecipesByIngre(widget.ingredients[0]).then((value) {
+      setState(() {
+        meals = value;
+        isLoading = false;
+        print(meals.toString());
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +41,9 @@ class RecomRecipe extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context);
+                },
                 child: Container(
                   child: Material(
                     color: lightOrange,
@@ -38,18 +65,33 @@ class RecomRecipe extends StatelessWidget {
                 "So, here are recipe recommendations that you can try with your cooking ingredients...",
                 style: TextStyle(
                   color: semiBlack,
-                  fontSize: 19,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-              ListView.builder(
-                itemCount: 4,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return RecipeCardLong();
-                },
-              )
+              isLoading
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Center(child: const CircularProgressIndicator()),
+                    )
+                  : ListView.builder(
+                      itemCount: 4,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Detail(
+                                      idmeals: meals[index],
+                                    ),
+                                  ));
+                            },
+                            child: RecipeCardLong(meals[index], context));
+                      },
+                    ),
             ],
           ),
         ),
@@ -57,19 +99,19 @@ class RecomRecipe extends StatelessWidget {
     );
   }
 
-  Container RecipeCardLong() {
+  Container RecipeCardLong(Meals2 meals, context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
-      height: 120,
+      height: 110,
       width: double.infinity,
       child: Material(
         elevation: 3,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
         child: Row(
           children: [
             Container(
-              height: 120,
-              width: 160,
+              height: 110,
+              width: 110,
               decoration: BoxDecoration(
                   boxShadow: const [
                     BoxShadow(
@@ -78,9 +120,9 @@ class RecomRecipe extends StatelessWidget {
                         blurRadius: 5,
                         offset: Offset(0, 2)),
                   ],
-                  borderRadius: BorderRadius.circular(20),
-                  image: const DecorationImage(
-                      image: AssetImage("assets/images/fried-rice.jpg"),
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                      image: NetworkImage(meals.strMealThumb as String),
                       fit: BoxFit.cover)),
             ),
             Padding(
@@ -88,26 +130,26 @@ class RecomRecipe extends StatelessWidget {
                   horizontal: defaultPadding, vertical: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(
+                  Container(
                     width: 150,
                     child: AutoSizeText(
-                      "Fried Rice with Special Egg",
-                      maxLines: 3,
-                      minFontSize: 16,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      meals.strMeal as String,
+                      style: const TextStyle(
                           color: semiBlack,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  SizedBox(height: 2),
                   const Text("Seafood",
                       style: TextStyle(
                           color: lightGrey,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500)),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400)),
                   const SizedBox(height: 10),
                   // SizedBox(
                   //   height: 20,

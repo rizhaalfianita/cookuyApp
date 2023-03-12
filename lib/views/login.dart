@@ -5,7 +5,6 @@ import 'package:cookuy/views/register.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
-
   @override
   State<Login> createState() => _LoginState();
 }
@@ -38,7 +37,7 @@ class _LoginState extends State<Login> {
             ),
             const SizedBox(height: 42),
             const Text(
-              "Login to your Acccount",
+              "Login to Your Acccount",
               style: TextStyle(
                   color: semiBlack, fontWeight: FontWeight.w600, fontSize: 18),
             ),
@@ -49,9 +48,45 @@ class _LoginState extends State<Login> {
               "Email Address",
             ),
             const SizedBox(height: 18),
-            TextFieldModelPw(context, controllerPass, "Password"),
+            Container(
+              width: MediaQuery.of(context).size.width * 1,
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  spreadRadius: 0,
+                  blurRadius: 10,
+                  offset: Offset(2, 4), // changes position of shadow
+                ),
+              ]),
+              child: TextFormField(
+                controller: controllerPass,
+                decoration: InputDecoration(
+                  filled: true,
+                  focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: white)),
+                  fillColor: white,
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: white, width: 3)),
+                  hintText: "Password",
+                  hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
+                  suffixIcon: IconButton(
+                      onPressed: (() => setState(
+                          () => isPasswordVisible = !isPasswordVisible)),
+                      icon: isPasswordVisible
+                          ? Icon(Icons.visibility)
+                          : Icon(Icons.visibility_off)),
+                ),
+                obscureText: isPasswordVisible,
+              ),
+            ),
             const SizedBox(height: 20),
-            ButtonCustom(context, "Sign In", double.infinity, ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()))),
+            ButtonCustom(
+                context,
+                "Sign In",
+                double.infinity,
+                () => Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()))),
             Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +100,7 @@ class _LoginState extends State<Login> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Register()));
+                            builder: (context) => Register()));
                   },
                   child: const Text(
                     "Sign Up",

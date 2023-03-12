@@ -1,134 +1,137 @@
 import 'package:cookuy/constants.dart';
+import 'package:cookuy/views/components/customWidget.dart';
 import 'package:cookuy/views/login.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatelessWidget {
-  const Register({super.key});
+class Register extends StatefulWidget {
+  Register({super.key});
+
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  bool isPasswordVisible = true;
+  bool isPasswordVisibleConfirm = true;
+
+  TextEditingController controllerEmail = TextEditingController();
+
+  TextEditingController controllerPass = TextEditingController();
+
+  TextEditingController controllerConfirmPass = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: defaultPadding, vertical: defaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 95),
             Center(
-                child: Image.asset(
-              "assets/images/logo.png",
-              width: 130,
-            )),
-            const SizedBox(height: 20),
+              child: Text(
+                "Cookuy",
+                style: TextStyle(
+                    color: lightOrange,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 48),
+              ),
+            ),
+            const SizedBox(height: 42),
             const Text(
-              "Sign Up",
+              "Create New Acccount",
               style: TextStyle(
-                  color: semiBlack, fontWeight: FontWeight.w800, fontSize: 30),
+                  color: semiBlack, fontWeight: FontWeight.w600, fontSize: 18),
             ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 1,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: extraLightGrey)),
-                  fillColor: extraLightGrey,
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          const BorderSide(color: extraLightGrey, width: 3)),
-                  hintText: 'Email Address',
-                  prefixIcon: const Icon(
-                    Icons.email,
-                    color: lightGrey,
-                  ),
-                  hintStyle: const TextStyle(color: lightGrey, fontSize: 16),
-                ),
-              ),
+            const SizedBox(height: 18),
+            TextFieldModel(
+              context,
+              controllerEmail,
+              "Email Address",
             ),
-            const SizedBox(height: 15),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 1,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: extraLightGrey)),
-                  fillColor: extraLightGrey,
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          const BorderSide(color: extraLightGrey, width: 3)),
-                  hintText: 'Password',
-                  prefixIcon: const Icon(
-                    Icons.key,
-                    color: lightGrey,
-                  ),
-                  hintStyle: const TextStyle(color: lightGrey, fontSize: 16),
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 1,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: extraLightGrey)),
-                  fillColor: extraLightGrey,
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          const BorderSide(color: extraLightGrey, width: 3)),
-                  hintText: 'Confirm Password',
-                  prefixIcon: const Icon(
-                    Icons.key,
-                    color: lightGrey,
-                  ),
-                  hintStyle: const TextStyle(color: lightGrey, fontSize: 16),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              height: 54,
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Login()));
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: lightOrange,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    )),
-                child: const Text(
-                  "Sign Up",
-                  style: TextStyle(
-                      color: white, fontSize: 17, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 18),
             Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(color: extraLightGrey, width: 2))),
+              width: MediaQuery.of(context).size.width * 1,
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  spreadRadius: 0,
+                  blurRadius: 10,
+                  offset: Offset(2, 4), // changes position of shadow
+                ),
+              ]),
+              child: TextFormField(
+                controller: controllerPass,
+                decoration: InputDecoration(
+                  filled: true,
+                  focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: white)),
+                  fillColor: white,
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: white, width: 3)),
+                  hintText: "Password",
+                  hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
+                  suffixIcon: IconButton(
+                      onPressed: (() => setState(
+                          () => isPasswordVisible = !isPasswordVisible)),
+                      icon: isPasswordVisible
+                          ? Icon(Icons.visibility)
+                          : Icon(Icons.visibility_off)),
+                ),
+                obscureText: isPasswordVisible,
+              ),
             ),
-            const SizedBox(
-              height: defaultPadding,
+            const SizedBox(height: 18),
+            Container(
+              width: MediaQuery.of(context).size.width * 1,
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  spreadRadius: 0,
+                  blurRadius: 10,
+                  offset: Offset(2, 4), // changes position of shadow
+                ),
+              ]),
+              child: TextFormField(
+                controller: controllerConfirmPass,
+                decoration: InputDecoration(
+                  filled: true,
+                  focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: white)),
+                  fillColor: white,
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: white, width: 3)),
+                  hintText: "Confirm Password",
+                  hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
+                  suffixIcon: IconButton(
+                      onPressed: (() => setState(() =>
+                          isPasswordVisibleConfirm =
+                              !isPasswordVisibleConfirm)),
+                      icon: isPasswordVisibleConfirm
+                          ? Icon(Icons.visibility)
+                          : Icon(Icons.visibility_off)),
+                ),
+                obscureText: isPasswordVisibleConfirm,
+              ),
             ),
+            const SizedBox(height: 20),
+            ButtonCustom(
+                context,
+                "Sign Up",
+                double.infinity,
+                () => Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Login()))),
+            Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Don't have an account? ",
+                  "Already have an account? ",
                   style: TextStyle(color: semiBlack, fontSize: 16),
                 ),
                 InkWell(

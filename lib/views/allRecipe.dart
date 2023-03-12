@@ -1,5 +1,6 @@
 import 'package:cookuy/constants.dart';
 import 'package:cookuy/views/components/customWidget.dart';
+import 'package:cookuy/views/detail.dart';
 import 'package:flutter/material.dart';
 
 import '../controller/recipesByIngreController.dart';
@@ -41,38 +42,62 @@ class _AllRcipeState extends State<AllRcipe> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Material(
-                  color: lightOrange,
-                  borderRadius: BorderRadius.circular(50),
-                  elevation: 1,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                    child: Icon(
-                      Icons.keyboard_arrow_left,
-                      color: white,
-                      size: 28,
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Material(
+                      color: lightOrange,
+                      borderRadius: BorderRadius.circular(50),
+                      elevation: 1,
+                      child: const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        child: Icon(
+                          Icons.keyboard_arrow_left,
+                          color: white,
+                          size: 28,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(width: 16),
+                  const Text("All Recipes",
+                      style: TextStyle(
+                          color: semiBlack,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600)),
+                ],
               ),
-              const SizedBox(height: 20),
-              const Text("All Recipes",
-                  style: TextStyle(
-                      color: semiBlack,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700)),
               isLoading
-                  ? const CircularProgressIndicator()
-                  : ListView.builder(
-                      shrinkWrap: true,
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Center(child: const CircularProgressIndicator()),
+                    )
+                  : GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                       itemCount: 4,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 24,
+                        childAspectRatio: 0.8,
+                      ),
                       itemBuilder: (context, index) {
-                        return RecipeCard(meals[index], context);
+                        return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Detail(
+                                            idmeals: meals[index],
+                                          )));
+                            },
+                            child: RecipeCard(meals[index], context));
                       },
                     )
             ],

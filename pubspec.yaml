@@ -92,11 +92,11 @@ flutter:
       fonts:
         - asset: assets/fonts/poppins/Poppins-ExtraLight.ttf
         - asset: assets/fonts/poppins/Poppins-Light.ttf
-        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
-        - asset: assets/fonts/Poppins/Poppins-Medium.ttf
-        - asset: assets/fonts/Poppins/Poppins-SemiBold.ttf
-        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
-        - asset: assets/fonts/Poppins/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/poppins/Poppins-Medium.ttf
+        - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
+        - asset: assets/fonts/poppins/Poppins-Bold.ttf
+        - asset: assets/fonts/poppins/Poppins-ExtraBold.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

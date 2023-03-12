@@ -1,4 +1,6 @@
+import 'package:cookuy/recomRecipe.dart';
 import 'package:cookuy/views/allRecipe.dart';
+import 'package:cookuy/views/components/customWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_object_detection/google_mlkit_object_detection.dart';
 //import iu
@@ -47,28 +49,16 @@ class _ResumeIngredientState extends State<ResumeIngredientWithoutImage> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: SizedBox(
-                  width: 160,
-                  child: Material(
-                    elevation: 1,
-                    color: lightOrange,
-                    borderRadius: BorderRadius.circular(20),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.keyboard_arrow_left, color: white),
-                          SizedBox(width: 3),
-                          Text(
-                            "Back to Home",
-                            style: TextStyle(
-                              color: white,
-                              fontSize: 17,
-                            ),
-                          )
-                        ],
-                      ),
+                child: Material(
+                  color: lightOrange,
+                  borderRadius: BorderRadius.circular(50),
+                  elevation: 1,
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: Icon(
+                      Icons.keyboard_arrow_left,
+                      color: white,
+                      size: 28,
                     ),
                   ),
                 ),
@@ -78,12 +68,11 @@ class _ResumeIngredientState extends State<ResumeIngredientWithoutImage> {
                 "Lets cook with your available ingredients",
                 style: TextStyle(
                   color: semiBlack,
-                  fontSize: 19,
-                  fontWeight: FontWeight.w800,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 12),
-
               Container(
                 width: double.infinity,
                 height: 50,
@@ -103,7 +92,7 @@ class _ResumeIngredientState extends State<ResumeIngredientWithoutImage> {
                       ),
                     ),
                     Text(
-                      "You can add more ingredients or remove some of them",
+                      "You can add more ingredients or remove\nsome of them",
                       style: TextStyle(
                         color: Colors.black38,
                         fontSize: 12,
@@ -185,26 +174,27 @@ class _ResumeIngredientState extends State<ResumeIngredientWithoutImage> {
                   width: double.infinity,
                   height: 50,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black87),
+                    border: Border.all(color: semiBlack),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Center(
                     child: Text(
                       "Add more ingredients",
                       style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
+                        color: semiBlack,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 12),
-              InkWell(
-                //outline border
-                onTap: () {
-                  //check if meals is empty
+              ButtonCustom(
+                context,
+                "Next",
+                double.infinity,
+                () {
                   if (widget.meals.isEmpty) {
                     //show snackbar
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -218,31 +208,12 @@ class _ResumeIngredientState extends State<ResumeIngredientWithoutImage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AllRcipe(
+                            builder: (context) => RecomRecipe(
                                   ingredients: widget.meals,
                                 )));
                   }
                 },
-                child: Container(
-                  width: double.infinity,
-                  height: 50,
-                  //fill color rounder border
-                  decoration: BoxDecoration(
-                    color: lightOrange,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Next",
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              )
             ],
           ),
         ),

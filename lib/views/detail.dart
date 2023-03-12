@@ -96,18 +96,19 @@ class _DetailState extends State<Detail> {
                               children: [
                                 const Icon(
                                   Icons.location_pin,
-                                  color: lightGrey,
+                                  color: lightOrange,
                                 ),
                                 const SizedBox(width: 5),
                                 Text(
                                   meals.strArea as String,
                                   style: const TextStyle(
-                                      color: lightGrey, fontSize: 16),
+                                      color: lightOrange, fontSize: 16),
                                 ),
                               ],
                             ),
                             Material(
                               color: lightOrange,
+                              elevation: 1,
                               borderRadius: BorderRadius.circular(10),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -164,7 +165,7 @@ class _DetailState extends State<Detail> {
                                     style: const TextStyle(
                                       color: semiBlack,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ],
@@ -195,7 +196,7 @@ class _DetailState extends State<Detail> {
                                     style: const TextStyle(
                                       color: semiBlack,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ],
@@ -208,18 +209,18 @@ class _DetailState extends State<Detail> {
                           "Instructions",
                           style: TextStyle(
                             color: semiBlack,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                             fontSize: 20,
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        const SizedBox(height: 8),
                         Text(
                           meals.strInstructions as String,
                           textAlign: TextAlign.justify,
                           style: const TextStyle(
                             color: semiBlack,
                             fontWeight: FontWeight.w400,
-                            fontSize: 18,
+                            fontSize: 16,
                           ),
                         ),
                       ],
