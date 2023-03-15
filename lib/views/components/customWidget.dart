@@ -16,7 +16,7 @@ Widget RecipeCard(Meals2 meals, context) {
     },
     child: Material(
       elevation: 3,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(12),
       child: Column(
         children: [
           Container(
@@ -29,7 +29,7 @@ Widget RecipeCard(Meals2 meals, context) {
                       blurRadius: 5,
                       offset: Offset(0, 2)),
                 ],
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
                     image: NetworkImage(meals.strMealThumb as String),
                     fit: BoxFit.cover)),
@@ -46,7 +46,7 @@ Widget RecipeCard(Meals2 meals, context) {
                     Container(
                       width: 130,
                       child: Center(
-                        child: AutoSizeText(
+                        child: Text(
                           meals.strMeal as String,
                           style: const TextStyle(
                               color: semiBlack,
@@ -158,6 +158,12 @@ Widget TextFieldModel(
         hintText: text,
         hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
       ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'This field cannot be empty';
+        }
+        return null;
+      },
     ),
   );
 }

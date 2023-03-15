@@ -2,6 +2,7 @@ import 'package:cookuy/constants.dart';
 import 'package:cookuy/controller/recipesByIngreController.dart';
 import 'package:cookuy/models/recipes.dart';
 import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Detail extends StatefulWidget {
   final String idmeals;
@@ -24,9 +25,19 @@ class _DetailState extends State<Detail> {
         meals = value;
         isLoading = false;
         print(meals.toString());
+
+        YoutubePlayerController _youtubecontroller = YoutubePlayerController(
+          initialVideoId:
+              YoutubePlayer.convertUrlToId(meals.strYoutube as String)
+                  .toString(),
+          flags: YoutubePlayerFlags(
+            autoPlay: true,
+            mute: true,
+          ),
+        );
       });
     });
-  }
+  } // BBAyRBTfsOU
 
   @override
   Widget build(BuildContext context) {
@@ -223,6 +234,47 @@ class _DetailState extends State<Detail> {
                             fontSize: 16,
                           ),
                         ),
+                        SizedBox(height: 30),
+                        Text(
+                          "Tutorial Video",
+                          style: TextStyle(
+                            color: semiBlack,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        YoutubePlayer(
+                          controller: YoutubePlayerController(
+                            initialVideoId: YoutubePlayer.convertUrlToId(
+                                    meals.strYoutube as String)
+                                .toString(),
+                            flags: YoutubePlayerFlags(
+                              autoPlay: false,
+                              mute: false,
+                            ),
+                          ),
+                          showVideoProgressIndicator: true,
+                          bottomActions: [
+                            CurrentPosition(),
+                            ProgressBar(isExpanded: true),
+                          ],
+                          onReady: () {
+                            AlertDialog(
+                              content: Text("Video player is ready"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("OK"))
+                              ],
+                            );
+                          },
+                        ),
+                        SizedBox(
+                          height: 40,
+                        )
                       ],
                     ),
                   )

@@ -4,12 +4,11 @@ import 'package:cookuy/constants.dart';
 import 'package:cookuy/views/allRecipe.dart';
 import 'package:cookuy/views/components/customWidget.dart';
 import 'package:cookuy/views/detail.dart';
-import 'package:cookuy/views/resumeIngredient.dart';
 import 'package:cookuy/views/resumeIngredientWithoutImage.dart';
 import 'package:cookuy/views/saved.dart';
 import 'package:cookuy/views/search.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 //import ui
 import 'dart:ui' as ui;
 import '../controller/recipesByIngreController.dart';
@@ -94,6 +93,15 @@ class _BodyState extends State<Body> {
     });
   }
 
+  String? auth() {
+    final user = FirebaseAuth.instance.currentUser;
+    String? email;
+    if (user != null) {
+      email = user.email;
+    }
+    return email;
+  }
+
   @override
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
@@ -106,35 +114,34 @@ class _BodyState extends State<Body> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    // ignore: prefer_const_literals_to_create_immutables
+                  Row(
                     children: [
-                      const Text(
-                        "Hello, John!",
+                      CircleAvatar(
+                        radius: 18,
+                        backgroundImage: AssetImage("assets/images/wonu.jpg"),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        auth() as String,
                         style: TextStyle(color: lightGrey, fontSize: 16),
                       ),
-                      const SizedBox(height: 4),
-                      SizedBox(
-                        width: widthScreen * 0.7,
-                        child: const AutoSizeText(
-                          "Unleash your inner chef with Cookuy",
-                          maxLines: 2,
-                          minFontSize: 22,
-                          style: TextStyle(
-                              color: semiBlack,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      )
                     ],
                   ),
-                  const CircleAvatar(
-                    radius: 28,
-                    backgroundImage: AssetImage("assets/images/wonu.jpg"),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Unleash your inner chef with Cookuy",
+                      maxLines: 2,
+                      style: TextStyle(
+                          color: semiBlack,
+                          fontSize: 27,
+                          fontWeight: FontWeight.w600),
+                    ),
                   )
                 ],
               ),

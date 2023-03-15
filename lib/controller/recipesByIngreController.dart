@@ -32,3 +32,17 @@ Future<Meals> getDetailRecipe(String id) async {
     throw Exception("Failed to load data");
   }
 }
+
+Future<List<Meals2>> getRecipeByName(String name) async {
+  String url = "https://www.themealdb.com/api/json/v1/1/search.php?s=$name";
+  var response = await http.get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    var data = jsonDecode(response.body);
+    var rest = data["meals"] == null ? [] : data["meals"] as List;
+    List<Meals2> meals = rest.map((e) => Meals2.fromJson(e)).toList();
+    return meals;
+  } else {
+    throw Exception("Failed to load data");
+  }
+}
+

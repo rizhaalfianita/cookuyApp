@@ -16,18 +16,18 @@ class _SearchState extends State<Search> {
   bool isLoading = true;
   //get widht screen from mediaquery
 
-  @override
-  void initState() {
-    super.initState();
-    isLoading = true;
-    getRecipesByIngre("Rice").then((value) {
-      setState(() {
-        meals = value;
-        isLoading = false;
-        print(meals.toString());
-      });
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   isLoading = true;
+  //   getRecipesByIngre("Rice").then((value) {
+  //     setState(() {
+  //       meals = value;
+  //       isLoading = false;
+  //       print(meals.toString());
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +90,16 @@ class _SearchState extends State<Search> {
                       ),
                     ]),
                     child: TextFormField(
+                      onChanged: (text) {
+                        text = text.toLowerCase();
+                        getRecipeByName(text).then((value) {
+                          setState(() {
+                            meals = value;
+                            isLoading = false;
+                            print(meals.toString());
+                          });
+                        });
+                      },
                       autofocus: true,
                       decoration: InputDecoration(
                         filled: true,
@@ -128,7 +138,7 @@ class _SearchState extends State<Search> {
                   : GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 4,
+                      itemCount: meals.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
