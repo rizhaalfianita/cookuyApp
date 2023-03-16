@@ -52,28 +52,14 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: SizedBox(
-                  width: 160,
+                child: Container(
                   child: Material(
                     elevation: 1,
                     color: lightOrange,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(50),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.keyboard_arrow_left, color: white),
-                          SizedBox(width: 3),
-                          Text(
-                            "Back to Scan",
-                            style: TextStyle(
-                              color: white,
-                              fontSize: 17,
-                            ),
-                          )
-                        ],
-                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.keyboard_arrow_left, color: white),
                     ),
                   ),
                 ),
@@ -121,7 +107,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                       ),
                     ),
                     Text(
-                      "You can add more ingredients or remove some of them",
+                      "You can add more ingredients or remove\nsome of them",
                       style: TextStyle(
                         color: Colors.black38,
                         fontSize: 12,
@@ -219,24 +205,24 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                 ),
               ),
               const SizedBox(height: 12),
-              ButtonCustom(context, "Next", double.infinity, (){
+              ButtonCustom(context, "Next", double.infinity, () {
                 if (widget.meals.isEmpty) {
-                    //show snackbar
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Please add at least one ingredient"),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  } else {
-                    //go to next page
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AllRcipe(
-                                  ingredients: widget.meals,
-                                )));
-                  }
+                  //show snackbar
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Please add at least one ingredient"),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                } else {
+                  //go to next page
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AllRcipe(
+                                ingredients: widget.meals,
+                              )));
+                }
               }),
             ],
           ),

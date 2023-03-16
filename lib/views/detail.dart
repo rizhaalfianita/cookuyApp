@@ -172,38 +172,7 @@ class _DetailState extends State<Detail> {
                                   ),
                                   const SizedBox(width: 20),
                                   Text(
-                                    meals.ingredients![index],
-                                    style: const TextStyle(
-                                      color: semiBlack,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                        ListView.builder(
-                          itemCount: meals.measures!.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 15,
-                                    width: 15,
-                                    decoration: BoxDecoration(
-                                        color: lightOrange,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Text(
-                                    meals.measures![index],
+                                    "${meals.measures![index]} ${meals.ingredients![index]} ",
                                     style: const TextStyle(
                                       color: semiBlack,
                                       fontWeight: FontWeight.w400,
