@@ -41,46 +41,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  camera:
-    dependency: transitive
-    description:
-      name: camera
-      sha256: "3ad71371b8168a4c8012c0b40a53c05afc75d46cc688b0f37b4611a841d47b25"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.8+1"
-  camera_android:
-    dependency: transitive
-    description:
-      name: camera_android
-      sha256: "665d62c1f334722c7519ca5d3b94ad68ecaa801691870602da5638a42c1fff67"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.8+3"
-  camera_avfoundation:
-    dependency: transitive
-    description:
-      name: camera_avfoundation
-      sha256: "7ac8b950672716722af235eed7a7c37896853669800b7da706bb0a9fd41d3737"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.13+1"
-  camera_platform_interface:
-    dependency: transitive
-    description:
-      name: camera_platform_interface
-      sha256: "00d972adee2e8a282b4d7445e8e694aa1dc0c36b70455b99afa96fbf5e814119"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.1"
-  camera_web:
-    dependency: transitive
-    description:
-      name: camera_web
-      sha256: "18cdbee5441e9a6fb129fdd9b68a06d1b8c5236932ba97d5faeaefe80db2e5bd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.1+6"
   characters:
     dependency: transitive
     description:
@@ -289,13 +249,13 @@ packages:
     source: hosted
     version: "4.0.2"
   image:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image
-      sha256: "8e9d133755c3e84c73288363e6343157c383a0c6c56fc51afcc5d4d7180306d6"
+      sha256: "483a389d6ccb292b570c31b3a193779b1b0178e7eb571986d9a49904b6861227"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.0"
+    version: "4.0.15"
   image_picker:
     dependency: "direct main"
     description:
@@ -384,6 +344,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -496,14 +464,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
-  quiver:
+  provider:
     dependency: transitive
     description:
-      name: quiver
-      sha256: b1c1ac5ce6688d77f65f3375a9abb9319b3cb32486bdc7a1e0fdf004d7ba4e47
+      name: provider
+      sha256: "59471e0a4595e264625d3496af567ac85bdae1148ec985aff1e0555786f53ecf"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.1"
+    version: "5.0.0"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.27.7"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -533,14 +509,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  stream_transform:
-    dependency: transitive
+  streams_provider:
+    dependency: "direct main"
     description:
-      name: stream_transform
-      sha256: "14a00e794c7c11aa145a170587321aedce29769c08d7f58b1d141da75e3b1c6f"
+      name: streams_provider
+      sha256: "69e00b85ac3ff928d5c2b341cee6e835720a17a676fe12f132afe5ec300bd76f"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "0.1.1"
   string_scanner:
     dependency: transitive
     description:
@@ -565,30 +541,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.16"
-  tflite_flutter:
-    dependency: transitive
-    description:
-      name: tflite_flutter
-      sha256: "663483abf86066cdf9eae29df65e5e39ea5823d3f426507a81840d3b84ce58cd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.0"
-  tflite_flutter_helper:
-    dependency: "direct main"
-    description:
-      name: tflite_flutter_helper
-      sha256: "0d57cce7622826cf11ec602b345ea34fae0da30c8982f973e2037d6245a605d7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.1"
-  tuple:
-    dependency: transitive
-    description:
-      name: tuple
-      sha256: "0ea99cd2f9352b2586583ab2ce6489d1f95a5f6de6fb9492faaf97ae2060f0aa"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   typed_data:
     dependency: transitive
     description:

@@ -3,8 +3,16 @@ import 'package:cookuy/views/home.dart';
 import 'package:cookuy/views/register.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +40,7 @@ class Login extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width * 1,
               child: TextFormField(
+                controller: emailController,
                 decoration: InputDecoration(
                   filled: true,
                   focusedBorder: const OutlineInputBorder(
@@ -54,6 +63,7 @@ class Login extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width * 1,
               child: TextFormField(
+                controller: passwordController,
                 decoration: InputDecoration(
                   filled: true,
                   focusedBorder: const OutlineInputBorder(

@@ -45,7 +45,8 @@ dependencies:
   google_mlkit_object_detection: ^0.6.0
   image_picker: ^0.8.6+4
   path_provider: ^2.0.13
-  tflite_flutter_helper: ^0.3.1
+  streams_provider: ^0.1.1
+  image: ^4.0.15
 
 dev_dependencies:
   flutter_test:
@@ -72,10 +73,18 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/images/fried-rice.jpg
     - assets/icons/
     - assets/ml/IngredientDetector_best-fp16.tflite
     - assets/ml/IngredientDetector.tflite
     - assets/ml/FoodIngredient_PascalVOC.tflite
+    - assets/ml/FoodIngredient_PascalVOC_float16.tflite
+    - assets/ml/object_labeler.tflite
+    - assets/ml/model_dariDocTensorflow.tflite
+    - assets/ml/converted_model.tflite
+    - assets/ml/salad_efficient1.tflite
+    - assets/ml/yolov5s-fp16.tflite
+    - assets/ml/converted_model_metadata.tflite
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

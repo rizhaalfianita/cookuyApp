@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cookuy/views/resumeIngredient.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io' as io;
 import 'package:path/path.dart';
 // import tflite
-
+import 'package:image/image.dart' as img;
 //import ui
 import 'dart:ui' as ui;
 
@@ -43,19 +45,49 @@ ui.Image? iimage;
 //     }
 //   }
 
+// normalizeImage(Uint8List imageBytes) {
+Future<img.Image> _normalizeImage(File file) async {
+  final imageBytes = await file.readAsBytes();
+  var image = img.decodeImage(imageBytes)!;
+  // Normalize image here with std and mean
+  final mean = [0.485, 0.456, 0.406];
+  final std = [0.229, 0.224, 0.225];
+
+  // resize image to 300x300
+  image = img.copyResize(image, width: 300, height: 300);
+  final normalizedImage = img.normalize(image, min: -1, max: 1);
+  return normalizedImage;
+}
+
 void getIngredients(BuildContext context) async {
   //create try cacth foimage picker
   try {
-    final pickedFile = await ImagePicker().pickImage(
+    var pickedFile = await ImagePicker().pickImage(
         source: ImageSource.camera, maxHeight: 1000, imageQuality: 40);
     if (pickedFile != null) {
+      //normalize image
+      // final normalizedImage = await _normalizeImage(File(pickedFile.path));
+      // //convert to input image
+      // final inputImage = InputImage.fromBytes(
+      //     bytes: img.encodeJpg(normalizedImage),
+      //     inputImageData: InputImageData(
+      //         size: Size(normalizedImage.width.toDouble(),
+      //             normalizedImage.height.toDouble()),
+      //         imageRotation: InputImageRotation.rotation0deg,
+      //         inputImageFormat: InputImageFormatValue.fromRawValue(1)!,
+      //         planeData: [
+      //           InputImagePlaneMetadata(
+      //               bytesPerRow: normalizedImage.width * 4,
+      //               height: normalizedImage.height,
+      //               width: normalizedImage.width)
+      //         ]));
+
       const mode = DetectionMode.single;
       final options = LocalObjectDetectorOptions(
           mode: mode,
           classifyObjects: false,
           multipleObjects: true,
-          modelPath:
-              await _getModel('assets/ml/FoodIngredient_PascalVOC.tflite'));
+          modelPath: await _getModel('assets/ml/salad_efficient1.tflite'));
       final objectDetector = ObjectDetector(options: options);
 
       final List<DetectedObject> objects = await objectDetector
