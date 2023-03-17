@@ -5,6 +5,8 @@ import 'package:cookuy/views/detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../models/recipes.dart';
+
 Widget RecipeCard(Meals2 meals, context) {
   return GestureDetector(
     onTap: () {
@@ -217,6 +219,105 @@ Widget TopSearch(BuildContext context, VoidCallback movesearch) {
           size: 20,
         ),
         hintStyle: const TextStyle(color: lightGrey, fontSize: 14),
+      ),
+    ),
+  );
+}
+
+Widget BookmarkCard(Meals meals, context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Detail(idmeals: meals.idMeal as String),
+          ));
+    },
+    child: Material(
+      elevation: 3,
+      borderRadius: BorderRadius.circular(12),
+      child: Column(
+        children: [
+          Container(
+            height: 112,
+            decoration: BoxDecoration(
+                boxShadow: const [
+                  BoxShadow(
+                      color: Color.fromARGB(255, 203, 203, 203),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 2)),
+                ],
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                    image: NetworkImage(meals.strMealThumb as String),
+                    fit: BoxFit.cover)),
+          ),
+          const SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 130,
+                      child: Center(
+                        child: Text(
+                          meals.strMeal as String,
+                          style: const TextStyle(
+                              color: semiBlack,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                        ),
+                      ),
+                    ),
+                    // Material(
+                    //   elevation: 1,
+                    //   borderRadius: BorderRadius.circular(10),
+                    //   color: extraLightOrange,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.symmetric(
+                    //         vertical: 2, horizontal: 10),
+                    //     child: Row(
+                    //       children: const [
+                    //         Icon(
+                    //           Icons.location_pin,
+                    //           color: white,
+                    //           size: 16,
+                    //         ),
+                    //         SizedBox(width: 5),
+                    //         // Text(
+                    //         //   meals.strArea == null
+                    //         //       ? "Unknown"
+                    //         //       : meals.strArea as String,
+                    //         //   style: TextStyle(
+                    //         //       color: white, fontWeight: FontWeight.w400),
+                    //         // ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                // Text(
+                //   meals.strCategory == null
+                //       ? "unknown"
+                //       : meals.strCategory as String,
+                //   style: TextStyle(
+                //       color: lightGrey,
+                //       fontSize: 16,
+                //       fontWeight: FontWeight.w500),
+                // )
+              ],
+            ),
+          )
+        ],
       ),
     ),
   );

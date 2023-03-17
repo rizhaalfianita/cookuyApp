@@ -1,3 +1,4 @@
+import 'package:cookuy/recomRecipe.dart';
 import 'package:cookuy/views/allRecipe.dart';
 import 'package:cookuy/views/components/customWidget.dart';
 import 'package:flutter/material.dart';
@@ -219,7 +220,7 @@ class _ResumeIngredientState extends State<ResumeIngredient> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => AllRcipe(
+                          builder: (context) => RecomRecipe(
                                 ingredients: widget.meals,
                               )));
                 }

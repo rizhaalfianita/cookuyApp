@@ -25,7 +25,7 @@ Future<void> checkUser(String email) async {
       print("User is not exist");
       firestore.collection("users").add({
         "email": email,
-        "bookmarks": {},
+        "bookmarks": [],
       });
     }
   });
@@ -47,8 +47,8 @@ Future<void> addBookmark(String email, String idbookmars) async {
   firestore.collection("users").get().then((querySnapshot) {
     querySnapshot.docs.forEach((result) {
       if (result.data()["email"] == email) {
-        List<dynamic> bookmarks =
-            List.from(result.data()["bookmarks"] ?? []);
+        print("==== add bookmark ====");
+        bookmarks = List<String>.from(result.data()['bookmarks'] ?? []);
         bookmarks.add(idbookmars);
         firestore.collection("users").doc(result.id).update({
           "bookmarks": bookmarks,
@@ -63,6 +63,7 @@ Future<void> removeBookmark(String email, String idbookmars) async {
   firestore.collection("users").get().then((querySnapshot) {
     querySnapshot.docs.forEach((result) {
       if (result.data()["email"] == email) {
+        print("==== remove bookmark ====");
         bookmarks = result.data()["bookmarks"];
         bookmarks.remove(idbookmars);
         firestore.collection("users").doc(result.id).update({
@@ -80,8 +81,7 @@ Future<bool> checkBookmark(String email, String idbookmars) async {
   await firestore.collection("users").get().then((querySnapshot) {
     querySnapshot.docs.forEach((result) {
       if (result.data()["email"] == email) {
-        List<dynamic> bookmarks =
-            List.from(result.data()["bookmarks"] ?? []);
+        List<dynamic> bookmarks = List.from(result.data()["bookmarks"] ?? []);
         if (bookmarks.contains(idbookmars)) {
           isBookmarkExist = true;
         }

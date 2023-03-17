@@ -31,7 +31,7 @@ class _RegisterState extends State<Register> {
       print('Register success');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Login success'),
+          content: Text('Register success'),
           backgroundColor: Colors.green,
         ),
       );

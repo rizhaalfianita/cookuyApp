@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:cookuy/controller/firestoreSevices.dart';
 import 'package:cookuy/models/recipes.dart';
 import 'package:cookuy/models/recipesByIngre.dart';
 import 'package:http/http.dart' as http;
@@ -46,3 +47,26 @@ Future<List<Meals2>> getRecipeByName(String name) async {
   }
 }
 
+//get allBookmark
+Future<List<Meals>> getAllBookmark() async {
+  List<Meals> allBookmark = [];
+  String url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+  getBookmarks(auth()!);
+  print("bookmarks : " + bookmarks.toString());
+  for (var i = 0; i < bookmarks.length; i++) {
+    String urlEachBookmark = url + bookmarks[i];
+    print("urlEachBookmark : " + urlEachBookmark);
+    var response = await http.get(Uri.parse(urlEachBookmark));
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      var rest = data["meals"] as List;
+      Meals meals = Meals.fromJson(rest[0]);
+      allBookmark.add(meals);
+    } else {
+      throw Exception("Failed to load data");
+    }
+  }
+
+  return allBookmark;
+}

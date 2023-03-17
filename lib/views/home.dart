@@ -5,6 +5,7 @@ import 'package:cookuy/controller/firestoreSevices.dart';
 import 'package:cookuy/views/allRecipe.dart';
 import 'package:cookuy/views/components/customWidget.dart';
 import 'package:cookuy/views/detail.dart';
+import 'package:cookuy/views/login.dart';
 import 'package:cookuy/views/resumeIngredientWithoutImage.dart';
 import 'package:cookuy/views/saved.dart';
 import 'package:cookuy/views/search.dart';
@@ -108,16 +109,35 @@ class _BodyState extends State<Body> {
                 // ignore: prefer_const_literals_to_create_immutables
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircleAvatar(
-                        radius: 18,
-                        backgroundImage: AssetImage("assets/images/wonu.jpg"),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 18,
+                            backgroundImage:
+                                AssetImage("assets/images/wonu.jpg"),
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            auth() as String,
+                            style: TextStyle(color: lightGrey, fontSize: 16),
+                          ),
+                        ],
                       ),
-                      SizedBox(width: 10),
-                      Text(
-                        auth() as String,
-                        style: TextStyle(color: lightGrey, fontSize: 16),
-                      ),
+                      IconButton(
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => Login()),
+                              (route) => false);
+                        },
+                        icon: const Icon(
+                          Icons.logout_outlined,
+                          color: lightOrange,
+                        ),
+                      )
                     ],
                   ),
                   const SizedBox(height: 12),

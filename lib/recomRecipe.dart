@@ -14,7 +14,7 @@ class RecomRecipe extends StatefulWidget {
 }
 
 class _RecomRecipeState extends State<RecomRecipe> {
-  List meals = [];
+  List<Meals2> meals = [];
   bool isLoading = true;
 
   @override
@@ -61,21 +61,48 @@ class _RecomRecipeState extends State<RecomRecipe> {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                "So, here are recipe recommendations that you can try with your cooking ingredients...",
-                style: TextStyle(
-                  color: semiBlack,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              meals.isEmpty
+                  ? Wrap(children: [
+                      Text(
+                        "Sorry, we can't find any recipe with ",
+                        style: TextStyle(
+                          color: semiBlack,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        "${widget.ingredients[0]}",
+                        style: TextStyle(
+                          color: lightOrange,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        " ingredient",
+                        style: TextStyle(
+                          color: semiBlack,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ])
+                  : Text(
+                      "So, here are recipe recommendations that you can try with your cooking ingredients...",
+                      style: TextStyle(
+                        color: semiBlack,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
               isLoading
                   ? Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: Center(child: const CircularProgressIndicator()),
                     )
                   : ListView.builder(
-                      itemCount: 4,
+                      itemCount: meals.length,
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
@@ -85,7 +112,7 @@ class _RecomRecipeState extends State<RecomRecipe> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => Detail(
-                                      idmeals: meals[index],
+                                      idmeals: meals[index].idMeal!,
                                     ),
                                   ));
                             },
