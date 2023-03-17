@@ -16,9 +16,15 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   bool isLoading = true;
   Meals meals = Meals();
-  bool isSaved = false;
+  bool isBookmarked = false;
+
+  Future<bool> get isBookmarkExist async {
+    return await checkBookmark(auth()!, widget.idmeals);
+  }
 
   //init
+
+  @override
   void initState() {
     super.initState();
     isLoading = true;
@@ -36,9 +42,25 @@ class _DetailState extends State<Detail> {
             mute: true,
           ),
         );
+        isBookmarkExist.then((value) {
+          setState(() {
+            isBookmarked = value;
+          });
+        });
       });
     });
   } // BBAyRBTfsOU
+
+  Future<void> toggleBookmark() async {
+    if (isBookmarked) {
+      removeBookmark(auth()!, widget.idmeals);
+    } else {
+      addBookmark(auth()!, widget.idmeals);
+    }
+    setState(() {
+      isBookmarked = !isBookmarked;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +72,9 @@ class _DetailState extends State<Detail> {
         backgroundColor: lightOrange,
         tooltip: 'Save',
         elevation: 4,
-        child: Icon(isSaved == false ? Icons.bookmark_outline : Icons.bookmark),
+        child: Icon(isBookmarked ? Icons.bookmark : Icons.bookmark_outline),
         onPressed: () {
-          isSaved = !isSaved;
-          if (isSaved) {
-            addBookmark(auth()!, meals.idMeal!);
-          } else {
-            removeBookmark(auth()!, meals.idMeal!);
-          }
+          toggleBookmark();
         },
       ),
       body: isLoading

@@ -48,7 +48,7 @@ Future<void> addBookmark(String email, String idbookmars) async {
     querySnapshot.docs.forEach((result) {
       if (result.data()["email"] == email) {
         List<dynamic> bookmarks =
-            List.from(result.data()["bookmarks"].values ?? []);
+            List.from(result.data()["bookmarks"] ?? []);
         bookmarks.add(idbookmars);
         firestore.collection("users").doc(result.id).update({
           "bookmarks": bookmarks,
@@ -71,6 +71,25 @@ Future<void> removeBookmark(String email, String idbookmars) async {
       }
     });
   });
+}
+
+//create get bookmarks
+Future<bool> checkBookmark(String email, String idbookmars) async {
+  bool isBookmarkExist = false;
+
+  await firestore.collection("users").get().then((querySnapshot) {
+    querySnapshot.docs.forEach((result) {
+      if (result.data()["email"] == email) {
+        List<dynamic> bookmarks =
+            List.from(result.data()["bookmarks"] ?? []);
+        if (bookmarks.contains(idbookmars)) {
+          isBookmarkExist = true;
+        }
+      }
+    });
+  });
+
+  return isBookmarkExist;
 }
 
 // get authorized user

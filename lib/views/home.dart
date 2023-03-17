@@ -23,7 +23,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List pages = [const Body(), null, const Body()];
+  List pages = [const Body(), Saved()];
 
   int currentIndex = 0;
 
@@ -32,9 +32,6 @@ class _HomeState extends State<Home> {
   void onTap(int index) {
     setState(() {
       currentIndex = index;
-      if (index == 1) {
-        currentIndex = 0;
-      }
     });
   }
 
