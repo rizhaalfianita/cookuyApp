@@ -14,17 +14,16 @@ import 'package:flutter/material.dart';
 // void main() {
 //   runApp(MyApp());
 // }
-
+ 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-// // Ideal time to initialize
-//   await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  // Ideal time to initialize
+  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   runApp(MyApp());
-//...
 }
 
 class MyApp extends StatelessWidget {

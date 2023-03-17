@@ -1,4 +1,5 @@
 import 'package:cookuy/constants.dart';
+import 'package:cookuy/controller/firestoreSevices.dart';
 import 'package:cookuy/controller/recipesByIngreController.dart';
 import 'package:cookuy/models/recipes.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   bool isLoading = true;
   Meals meals = Meals();
+  bool isSaved = false;
 
   //init
   void initState() {
@@ -25,7 +27,6 @@ class _DetailState extends State<Detail> {
         meals = value;
         isLoading = false;
         print(meals.toString());
-
         YoutubePlayerController _youtubecontroller = YoutubePlayerController(
           initialVideoId:
               YoutubePlayer.convertUrlToId(meals.strYoutube as String)
@@ -49,8 +50,15 @@ class _DetailState extends State<Detail> {
         backgroundColor: lightOrange,
         tooltip: 'Save',
         elevation: 4,
-        child: const Icon(Icons.bookmark_outline),
-        onPressed: () {},
+        child: Icon(isSaved == false ? Icons.bookmark_outline : Icons.bookmark),
+        onPressed: () {
+          isSaved = !isSaved;
+          if (isSaved) {
+            addBookmark(auth()!, meals.idMeal!);
+          } else {
+            removeBookmark(auth()!, meals.idMeal!);
+          }
+        },
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())

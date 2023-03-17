@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cookuy/constants.dart';
+import 'package:cookuy/controller/firestoreSevices.dart';
 import 'package:cookuy/views/allRecipe.dart';
 import 'package:cookuy/views/components/customWidget.dart';
 import 'package:cookuy/views/detail.dart';
@@ -91,15 +92,6 @@ class _BodyState extends State<Body> {
         print(meals.toString());
       });
     });
-  }
-
-  String? auth() {
-    final user = FirebaseAuth.instance.currentUser;
-    String? email;
-    if (user != null) {
-      email = user.email;
-    }
-    return email;
   }
 
   @override

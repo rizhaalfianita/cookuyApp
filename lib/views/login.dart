@@ -1,4 +1,5 @@
 import 'package:cookuy/constants.dart';
+import 'package:cookuy/controller/firestoreSevices.dart';
 import 'package:cookuy/views/components/customWidget.dart';
 import 'package:cookuy/views/home.dart';
 import 'package:cookuy/views/register.dart';
@@ -29,6 +30,7 @@ class _LoginState extends State<Login> {
           backgroundColor: Colors.green,
         ),
       );
+      checkUser(emailAddress);
       Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
