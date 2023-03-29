@@ -8,7 +8,7 @@ Before running the app, make sure you have the following installed:
 - Android Studio or Xcode: https://developer.android.com/studio or https://developer.apple.com/xcode/
 
 ## Running the app
-1. Clone the repository using 'git clone https://github.com/ouraan/cookuyApp.git'
+1. Clone the repository using `git clone https://github.com/ouraan/cookuyApp.git`
 2. Navigate to the project directory: `cd cookuy`
 3. Checkout the master branch: `git checkout master`
 4. Run `flutter pub get` to install the project dependencies.
