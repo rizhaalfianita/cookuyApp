@@ -21,3 +21,5 @@ If you encounter any issues while running the app, please check the Flutter docu
 ![IMG-20230327-WA0091](https://user-images.githubusercontent.com/74944361/228460815-474f8da2-185c-4829-9430-68465c14e719.jpg)
 ![IMG-20230327-WA0096](https://user-images.githubusercontent.com/74944361/228460824-801511a5-7597-499b-93fb-bed402c86bf8.jpg)
 ![IMG-20230327-WA0097](https://user-images.githubusercontent.com/74944361/228460840-fd33f4b2-c03e-4436-b003-2895364cd34f.jpg)
+
+knitr::include_graphics("https://user-images.githubusercontent.com/74944361/228460779-bfd70f44-19b9-44ca-b0ec-99fef105c40c.jpg", out.width = "50%", out.height = "50%")
