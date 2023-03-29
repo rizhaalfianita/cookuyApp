@@ -17,9 +17,9 @@ If you encounter any issues while running the app, please check the Flutter docu
 
 ## Screenshot App
 <div style="display:flex;">
-  <img src="https://user-images.githubusercontent.com/74944361/228460779-bfd70f44-19b9-44ca-b0ec-99fef105c40c.jpg" width="200" height="400" style="margin-right: 10px;"/>
-  <img src="https://user-images.githubusercontent.com/74944361/228460808-77ad28b3-d333-4d59-9517-747479ab9da3.jpg" width="200" height="400" style="margin-right: 10px;"/>
-  <img src="https://user-images.githubusercontent.com/74944361/228460815-474f8da2-185c-4829-9430-68465c14e719.jpg" width="200" height="400" style="margin-right: 10px;"/>
-  <img src="https://user-images.githubusercontent.com/74944361/228460824-801511a5-7597-499b-93fb-bed402c86bf8.jpg" width="200" height="400" style="margin-right: 10px;"/>
-<img src="https://user-images.githubusercontent.com/74944361/228460840-fd33f4b2-c03e-4436-b003-2895364cd34f.jpg" width="200" height="400" style="margin-right: 10px;"/>  
+  <img src="https://user-images.githubusercontent.com/74944361/228460779-bfd70f44-19b9-44ca-b0ec-99fef105c40c.jpg" width="200" height="400" style="margin-right: 20px;"/>
+  <img src="https://user-images.githubusercontent.com/74944361/228460808-77ad28b3-d333-4d59-9517-747479ab9da3.jpg" width="200" height="400" style="margin-right: 20px;"/>
+  <img src="https://user-images.githubusercontent.com/74944361/228460815-474f8da2-185c-4829-9430-68465c14e719.jpg" width="200" height="400" style="margin-right: 20px;"/>
+  <img src="https://user-images.githubusercontent.com/74944361/228460824-801511a5-7597-499b-93fb-bed402c86bf8.jpg" width="200" height="400" style="margin-right: 20px;"/>
+<img src="https://user-images.githubusercontent.com/74944361/228460840-fd33f4b2-c03e-4436-b003-2895364cd34f.jpg" width="200" height="400"/>  
 </div>
