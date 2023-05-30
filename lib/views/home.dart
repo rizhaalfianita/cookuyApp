@@ -98,153 +98,172 @@ class _BodyState extends State<Body> {
     print("Width: $widthScreen");
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: defaultPadding, vertical: defaultPadding * 2),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                //background
+                // create a container with rounded order in bottom
+                Container(
+                  width: widthScreen,
+                  height: 280,
+                  decoration: const BoxDecoration(
+                    color: extraLightOrange,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                  ),
+                ),
+                // image
+                Positioned(
+                    right: -5,
+                    bottom: 0,
+                    child: Image.asset(
+                      "assets/images/people.png",
+                      scale: 0.9,
+                    )),
+
+                // content
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                        defaultPadding, defaultPadding, defaultPadding, 0),
+                    child: Column(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // ignore: prefer_const_literals_to_create_immutables
+                          children: [
+                            const SizedBox(height: 12),
+                            SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                "Unleash your inner chef with Cookuy",
+                                maxLines: 2,
+                                style: TextStyle(
+                                    color: semiBlack,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "Find the recipe you want with\nthe ingredients you have\nin your kitchen",
+                              maxLines: 3,
+                              style: TextStyle(
+                                  color: semiBlack,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        TopSearch(context, () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Search()));
+                        }),
+                        const SizedBox(height: 28),
+                      ],
+                    )),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(defaultPadding, defaultPadding,
+                  defaultPadding, defaultPadding * 2),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                // ignore: prefer_const_literals_to_create_immutables
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 18,
-                            backgroundImage:
-                                AssetImage("assets/images/wonu.jpg"),
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            auth() as String,
-                            style: TextStyle(color: lightGrey, fontSize: 16),
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          FirebaseAuth.instance.signOut();
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(builder: (context) => Login()),
-                              (route) => false);
+                      GestureDetector(
+                        onTap: () {
+                          getIngredients(context);
                         },
-                        icon: const Icon(
-                          Icons.logout_outlined,
-                          color: lightOrange,
-                        ),
-                      )
+                        child: OptionBox(
+                            widthScreen, "assets/icons/scan.svg", "Scan"),
+                      ),
+                      InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ResumeIngredientWithoutImage(
+                                          meals: [],
+                                        )));
+                          },
+                          child: OptionBox(widthScreen, "assets/icons/add.svg",
+                              "Add Manual"))
                     ],
                   ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      "Unleash your inner chef with Cookuy",
-                      maxLines: 2,
-                      style: TextStyle(
-                          color: semiBlack,
-                          fontSize: 27,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              TopSearch(context, () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Search()));
-              }),
-              const SizedBox(height: 28),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      getIngredients(context);
-                    },
-                    child:
-                        OptionBox(widthScreen, "assets/icons/scan.svg", "Scan"),
-                  ),
-                  InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ResumeIngredientWithoutImage(
-                                      meals: [],
-                                    )));
-                      },
-                      child: OptionBox(
-                          widthScreen, "assets/icons/add.svg", "Add Manual"))
-                ],
-              ),
-              const SizedBox(height: 28),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  const Text(
-                    "Recommended recipe",
-                    style: TextStyle(
-                        color: semiBlack,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => const AllRcipe(
-                                    ingredients: ["egg"],
-                                  ))));
-                    },
-                    child: const Text(
-                      "See All",
-                      style: TextStyle(
-                          color: lightOrange,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ],
-              ),
-              isLoading
-                  ? Container()
-                  : GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 4,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 24,
-                        childAspectRatio: 0.8,
+                  const SizedBox(height: 28),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // ignore: prefer_const_literals_to_create_immutables
+                    children: [
+                      const Text(
+                        "Recommended recipe",
+                        style: TextStyle(
+                            color: semiBlack,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600),
                       ),
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Detail(
-                                            idmeals: meals[index],
-                                          )));
-                            },
-                            child: RecipeCard(meals[index], context));
-                      },
-                    )
-            ],
-          ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => const AllRcipe(
+                                        ingredients: ["egg"],
+                                      ))));
+                        },
+                        child: const Text(
+                          "See All",
+                          style: TextStyle(
+                              color: lightOrange,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ],
+                  ),
+                  isLoading
+                      ? Container()
+                      : GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: 4,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 24,
+                            childAspectRatio: 0.9,
+                          ),
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Detail(
+                                                idmeals: meals[index],
+                                              )));
+                                },
+                                child: RecipeCard(meals[index], context));
+                          },
+                        )
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

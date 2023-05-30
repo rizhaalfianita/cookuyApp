@@ -17,8 +17,7 @@ Widget RecipeCard(Meals2 meals, context) {
           ));
     },
     child: Material(
-      elevation: 3,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(5),
       child: Column(
         children: [
           Container(
@@ -26,19 +25,20 @@ Widget RecipeCard(Meals2 meals, context) {
             decoration: BoxDecoration(
                 boxShadow: const [
                   BoxShadow(
-                      color: Color.fromARGB(255, 203, 203, 203),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, 2)),
+                      // color: Color.fromARGB(255, 203, 203, 203),
+                      // spreadRadius: 1,
+                      // blurRadius: 5,
+                      // offset: Offset(0, 2)
+                      ),
                 ],
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
                     image: NetworkImage(meals.strMealThumb as String),
                     fit: BoxFit.cover)),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 5),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 1),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -87,7 +87,7 @@ Widget RecipeCard(Meals2 meals, context) {
                     // ),
                   ],
                 ),
-                const SizedBox(height: 5),
+                // const SizedBox(height: 5),
                 // Text(
                 //   meals.strCategory == null
                 //       ? "unknown"
@@ -175,8 +175,8 @@ Widget OptionBox(double widthScreen, String icon, String text) {
     height: 122,
     width: (widthScreen - 72) / 2,
     decoration: BoxDecoration(
-      color: extraLightGrey,
-      borderRadius: BorderRadius.circular(12),
+      color: white,
+      borderRadius: BorderRadius.circular(5),
     ),
     padding: const EdgeInsets.all(defaultPadding),
     child: Column(
@@ -208,7 +208,7 @@ Widget TopSearch(BuildContext context, VoidCallback movesearch) {
         filled: true,
         focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: extraLightGrey)),
-        fillColor: extraLightGrey,
+        fillColor: white,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: extraLightGrey, width: 3)),
