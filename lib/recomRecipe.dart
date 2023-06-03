@@ -99,7 +99,7 @@ class _RecomRecipeState extends State<RecomRecipe> {
               isLoading
                   ? Padding(
                       padding: const EdgeInsets.only(top: 20),
-                      child: Center(child: const CircularProgressIndicator()),
+                      child: Center(child: const CircularProgressIndicator(color: lightOrange,)),
                     )
                   : ListView.builder(
                       itemCount: meals.length,

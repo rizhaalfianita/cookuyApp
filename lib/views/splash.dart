@@ -39,7 +39,7 @@ class _SplashState extends State<Splash> {
             Text(
               "Cookuy",
               style: TextStyle(
-                  color: white, fontSize: 48, fontWeight: FontWeight.bold),
+                  color: white, fontSize: 26, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: defaultPadding),
             CircularProgressIndicator(

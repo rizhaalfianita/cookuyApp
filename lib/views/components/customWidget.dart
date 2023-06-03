@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cookuy/constants.dart';
 import 'package:cookuy/models/recipesByIngre.dart';
 import 'package:cookuy/views/detail.dart';
@@ -17,28 +16,20 @@ Widget RecipeCard(Meals2 meals, context) {
           ));
     },
     child: Material(
-      elevation: 3,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(5),
       child: Column(
         children: [
           Container(
             height: 112,
             decoration: BoxDecoration(
-                boxShadow: const [
-                  BoxShadow(
-                      color: Color.fromARGB(255, 203, 203, 203),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, 2)),
-                ],
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
                     image: NetworkImage(meals.strMealThumb as String),
                     fit: BoxFit.cover)),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 5),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 1),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -59,44 +50,8 @@ Widget RecipeCard(Meals2 meals, context) {
                         ),
                       ),
                     ),
-                    // Material(
-                    //   elevation: 1,
-                    //   borderRadius: BorderRadius.circular(10),
-                    //   color: extraLightOrange,
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.symmetric(
-                    //         vertical: 2, horizontal: 10),
-                    //     child: Row(
-                    //       children: const [
-                    //         Icon(
-                    //           Icons.location_pin,
-                    //           color: white,
-                    //           size: 16,
-                    //         ),
-                    //         SizedBox(width: 5),
-                    //         // Text(
-                    //         //   meals.strArea == null
-                    //         //       ? "Unknown"
-                    //         //       : meals.strArea as String,
-                    //         //   style: TextStyle(
-                    //         //       color: white, fontWeight: FontWeight.w400),
-                    //         // ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
-                const SizedBox(height: 5),
-                // Text(
-                //   meals.strCategory == null
-                //       ? "unknown"
-                //       : meals.strCategory as String,
-                //   style: TextStyle(
-                //       color: lightGrey,
-                //       fontSize: 16,
-                //       fontWeight: FontWeight.w500),
-                // )
               ],
             ),
           )
@@ -110,7 +65,7 @@ Widget ButtonCustom(
     BuildContext context, String text, double width, VoidCallback action) {
   return Container(
     width: width,
-    height: 50,
+    height: 58,
     decoration: BoxDecoration(boxShadow: [
       BoxShadow(
         color: Colors.black.withOpacity(0.08),
@@ -129,7 +84,7 @@ Widget ButtonCustom(
       style: ElevatedButton.styleFrom(
           primary: lightOrange,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(30),
           )),
     ),
   );
@@ -139,24 +94,19 @@ Widget TextFieldModel(
     BuildContext context, TextEditingController controller, String text) {
   return Container(
     width: MediaQuery.of(context).size.width * 1,
-    decoration: BoxDecoration(boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.05),
-        spreadRadius: 0,
-        blurRadius: 10,
-        offset: Offset(2, 4), // changes position of shadow
-      ),
-    ]),
     child: TextFormField(
       controller: controller,
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         filled: true,
-        focusedBorder:
-            const OutlineInputBorder(borderSide: BorderSide(color: white)),
-        fillColor: white,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: extraLightGrey),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        fillColor: extraLightGrey,
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: white, width: 3)),
+            borderRadius: BorderRadius.circular(30.0),
+            borderSide: const BorderSide(color: extraLightGrey, width: 3)),
         hintText: text,
         hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
       ),
@@ -171,29 +121,31 @@ Widget TextFieldModel(
 }
 
 Widget OptionBox(double widthScreen, String icon, String text) {
-  return Container(
-    height: 122,
-    width: (widthScreen - 72) / 2,
-    decoration: BoxDecoration(
-      color: extraLightGrey,
-      borderRadius: BorderRadius.circular(12),
-    ),
-    padding: const EdgeInsets.all(defaultPadding),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgPicture.asset(
-          icon,
-          height: 32,
-          width: 32,
-        ),
-        const SizedBox(height: 10),
-        Text(
-          text,
-          style: TextStyle(
-              fontSize: 14, color: semiBlack, fontWeight: FontWeight.w600),
-        )
-      ],
+  return Material(
+    elevation: 1,
+    borderRadius: BorderRadius.circular(5),
+    color: white,
+    child: Container(
+      height: 122,
+      width: (widthScreen - 72) / 2,
+      padding: const EdgeInsets.all(defaultPadding),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            icon,
+            height: 32,
+            width: 32,
+            color: lightOrange,
+          ),
+          const SizedBox(height: 10),
+          Text(
+            text,
+            style: TextStyle(
+                fontSize: 14, color: semiBlack, fontWeight: FontWeight.w600),
+          )
+        ],
+      ),
     ),
   );
 }
@@ -201,22 +153,27 @@ Widget OptionBox(double widthScreen, String icon, String text) {
 Widget TopSearch(BuildContext context, VoidCallback movesearch) {
   return Container(
     width: MediaQuery.of(context).size.width * 1,
-    height: 54,
     child: TextFormField(
       onTap: movesearch,
       decoration: InputDecoration(
         filled: true,
-        focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: extraLightGrey)),
-        fillColor: extraLightGrey,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: white),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        fillColor: white,
+        contentPadding: EdgeInsets.symmetric(vertical: 20),
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: extraLightGrey, width: 3)),
+            borderRadius: BorderRadius.circular(30.0),
+            borderSide: const BorderSide(color: white, width: 3)),
         hintText: 'What do you want to eat?',
-        prefixIcon: const Icon(
-          Icons.search,
-          color: lightGrey,
-          size: 20,
+        prefixIcon: Padding(
+          padding: const EdgeInsets.only(left: 30, right: 10),
+          child: const Icon(
+            Icons.search,
+            color: lightGrey,
+            size: 20,
+          ),
         ),
         hintStyle: const TextStyle(color: lightGrey, fontSize: 14),
       ),
@@ -234,20 +191,12 @@ Widget BookmarkCard(Meals meals, context) {
           ));
     },
     child: Material(
-      elevation: 3,
       borderRadius: BorderRadius.circular(12),
       child: Column(
         children: [
           Container(
             height: 112,
             decoration: BoxDecoration(
-                boxShadow: const [
-                  BoxShadow(
-                      color: Color.fromARGB(255, 203, 203, 203),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, 2)),
-                ],
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
                     image: NetworkImage(meals.strMealThumb as String),
@@ -276,44 +225,9 @@ Widget BookmarkCard(Meals meals, context) {
                         ),
                       ),
                     ),
-                    // Material(
-                    //   elevation: 1,
-                    //   borderRadius: BorderRadius.circular(10),
-                    //   color: extraLightOrange,
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.symmetric(
-                    //         vertical: 2, horizontal: 10),
-                    //     child: Row(
-                    //       children: const [
-                    //         Icon(
-                    //           Icons.location_pin,
-                    //           color: white,
-                    //           size: 16,
-                    //         ),
-                    //         SizedBox(width: 5),
-                    //         // Text(
-                    //         //   meals.strArea == null
-                    //         //       ? "Unknown"
-                    //         //       : meals.strArea as String,
-                    //         //   style: TextStyle(
-                    //         //       color: white, fontWeight: FontWeight.w400),
-                    //         // ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
                 const SizedBox(height: 5),
-                // Text(
-                //   meals.strCategory == null
-                //       ? "unknown"
-                //       : meals.strCategory as String,
-                //   style: TextStyle(
-                //       color: lightGrey,
-                //       fontSize: 16,
-                //       fontWeight: FontWeight.w500),
-                // )
               ],
             ),
           )

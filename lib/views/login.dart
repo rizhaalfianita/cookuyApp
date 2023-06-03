@@ -5,6 +5,7 @@ import 'package:cookuy/views/home.dart';
 import 'package:cookuy/views/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -19,6 +20,17 @@ class _LoginState extends State<Login> {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  Future<void> saveLoginInfo(String email, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('email', email);
+    await prefs.setString('password', password);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void login(String emailAddress, password) async {
     try {
       final credential = await FirebaseAuth.instance
@@ -31,7 +43,8 @@ class _LoginState extends State<Login> {
         ),
       );
       checkUser(emailAddress);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      await saveLoginInfo(emailAddress, password);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -57,6 +70,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: white,
       body: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: defaultPadding, vertical: defaultPadding),
@@ -65,25 +79,24 @@ class _LoginState extends State<Login> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 95),
-              Center(
-                child: Text(
-                  "Cookuy",
-                  style: TextStyle(
-                      color: lightOrange,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 48),
-                ),
-              ),
-              const SizedBox(height: 42),
-              const Text(
-                "Login to Your Acccount",
+              Container(
+                  margin: EdgeInsets.only(top: 30),
+                  child: Image.asset("assets/images/Cookuy.png")),
+              SizedBox(height: 50),
+              Text(
+                "Login to continue",
                 style: TextStyle(
                     color: semiBlack,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 15),
+              Container(
+                height: 4,
+                width: 40,
+                decoration: BoxDecoration(color: lightOrange),
+              ),
+              const SizedBox(height: 36),
               TextFieldModel(
                 context,
                 controllerEmail,
@@ -92,27 +105,26 @@ class _LoginState extends State<Login> {
               const SizedBox(height: 18),
               Container(
                 width: MediaQuery.of(context).size.width * 1,
-                decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: Offset(2, 4), // changes position of shadow
-                  ),
-                ]),
                 child: TextFormField(
                   controller: controllerPass,
                   decoration: InputDecoration(
                     filled: true,
-                    focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: white)),
-                    fillColor: white,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: extraLightGrey),
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    fillColor: extraLightGrey,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: const BorderSide(color: white, width: 3)),
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide:
+                            const BorderSide(color: extraLightGrey, width: 3)),
                     hintText: "Password",
                     hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
                     suffixIcon: IconButton(
+                        color: lightOrange,
+                        padding: EdgeInsets.symmetric(horizontal: 25.0),
                         onPressed: (() => setState(
                             () => isPasswordVisible = !isPasswordVisible)),
                         icon: isPasswordVisible
@@ -144,7 +156,7 @@ class _LoginState extends State<Login> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(context,
+                      Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) => Register()));
                     },
                     child: const Text(

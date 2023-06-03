@@ -78,7 +78,10 @@ class _DetailState extends State<Detail> {
         },
       ),
       body: isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(
+              color: lightOrange,
+            ))
           : SingleChildScrollView(
               child: Column(
                 children: [
@@ -100,20 +103,11 @@ class _DetailState extends State<Detail> {
                         child: Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: defaultPadding,
-                              vertical: defaultPadding),
-                          child: Material(
-                            color: lightOrange,
-                            borderRadius: BorderRadius.circular(50),
-                            elevation: 1,
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 5),
-                              child: Icon(
-                                Icons.keyboard_arrow_left,
-                                color: white,
-                                size: 28,
-                              ),
-                            ),
+                              vertical: defaultPadding * 2),
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: white,
+                            size: 24,
                           ),
                         ),
                       ),

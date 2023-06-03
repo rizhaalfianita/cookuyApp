@@ -14,20 +14,6 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   List meals = [];
   bool isLoading = true;
-  //get widht screen from mediaquery
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   isLoading = true;
-  //   getRecipesByIngre("Rice").then((value) {
-  //     setState(() {
-  //       meals = value;
-  //       isLoading = false;
-  //       print(meals.toString());
-  //     });
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +23,11 @@ class _SearchState extends State<Search> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: defaultPadding, vertical: defaultPadding * 1.5),
+              padding: EdgeInsets.only(
+                  top: defaultPadding * 2,
+                  bottom: defaultPadding * 1.5,
+                  left: defaultPadding,
+                  right: defaultPadding),
               decoration: BoxDecoration(
                 color: lightOrange,
               ),
@@ -50,21 +39,10 @@ class _SearchState extends State<Search> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Container(
-                          child: Material(
-                            color: white,
-                            borderRadius: BorderRadius.circular(50),
-                            elevation: 1,
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 5),
-                              child: Icon(
-                                Icons.keyboard_arrow_left,
-                                color: lightOrange,
-                                size: 28,
-                              ),
-                            ),
-                          ),
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: white,
+                          size: 24,
                         ),
                       ),
                       SizedBox(width: 16),
@@ -80,7 +58,6 @@ class _SearchState extends State<Search> {
                   SizedBox(height: 16),
                   Container(
                     width: MediaQuery.of(context).size.width * 1,
-                    height: 54,
                     decoration: BoxDecoration(boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.05),
@@ -102,14 +79,16 @@ class _SearchState extends State<Search> {
                       },
                       autofocus: true,
                       decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                         filled: true,
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(color: white),
                         ),
                         fillColor: white,
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(30),
                             borderSide:
                                 const BorderSide(color: white, width: 3)),
                         hintText: 'What do you want to eat?',
@@ -142,8 +121,8 @@ class _SearchState extends State<Search> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 24,
+                        mainAxisSpacing: 4,
+                        crossAxisSpacing: 16,
                         childAspectRatio: 0.8,
                       ),
                       itemBuilder: (context, index) {

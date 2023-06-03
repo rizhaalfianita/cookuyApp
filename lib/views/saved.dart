@@ -25,7 +25,10 @@ class _SavedState extends State<Saved> {
         future: getAllBookmark(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+                child: CircularProgressIndicator(
+              color: lightOrange,
+            ));
           } else if (snapshot.hasError) {
             return Center(child: Text('Error : ${snapshot.error}'));
           } else {
@@ -36,10 +39,10 @@ class _SavedState extends State<Saved> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Your Bookmark",
+                    Text("Bookmark",
                         style: TextStyle(
                             color: semiBlack,
-                            fontSize: 22,
+                            fontSize: 20,
                             fontWeight: FontWeight.w700)),
                     GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
@@ -48,7 +51,7 @@ class _SavedState extends State<Saved> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisSpacing: 24,
+                        mainAxisSpacing: 4,
                         crossAxisSpacing: 16,
                         childAspectRatio: 0.8,
                       ),

@@ -35,7 +35,7 @@ class _RegisterState extends State<Register> {
           backgroundColor: Colors.green,
         ),
       );
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -69,6 +69,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: white,
       body: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: defaultPadding, vertical: defaultPadding),
@@ -77,25 +78,24 @@ class _RegisterState extends State<Register> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 95),
-              Center(
-                child: Text(
-                  "Cookuy",
-                  style: TextStyle(
-                      color: lightOrange,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 48),
-                ),
-              ),
-              const SizedBox(height: 42),
-              const Text(
-                "Create New Acccount",
+              Container(
+                  margin: EdgeInsets.only(top: 30),
+                  child: Image.asset("assets/images/Cookuy.png")),
+              SizedBox(height: 50),
+              Text(
+                "Create your first \naccount",
                 style: TextStyle(
                     color: semiBlack,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 15),
+              Container(
+                height: 4,
+                width: 40,
+                decoration: BoxDecoration(color: lightOrange),
+              ),
+              const SizedBox(height: 36),
               TextFieldModel(
                 context,
                 controllerEmail,
@@ -104,27 +104,26 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 18),
               Container(
                 width: MediaQuery.of(context).size.width * 1,
-                decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: Offset(2, 4), // changes position of shadow
-                  ),
-                ]),
                 child: TextFormField(
                   controller: controllerPass,
                   decoration: InputDecoration(
                     filled: true,
-                    focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: white)),
-                    fillColor: white,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: extraLightGrey),
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    fillColor: extraLightGrey,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: const BorderSide(color: white, width: 3)),
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide:
+                            const BorderSide(color: extraLightGrey, width: 3)),
                     hintText: "Password",
                     hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
                     suffixIcon: IconButton(
+                        color: lightOrange,
+                        padding: EdgeInsets.symmetric(horizontal: 25.0),
                         onPressed: (() => setState(
                             () => isPasswordVisible = !isPasswordVisible)),
                         icon: isPasswordVisible
@@ -143,27 +142,26 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 18),
               Container(
                 width: MediaQuery.of(context).size.width * 1,
-                decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: Offset(2, 4), // changes position of shadow
-                  ),
-                ]),
                 child: TextFormField(
                   controller: controllerConfirmPass,
                   decoration: InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     filled: true,
-                    focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: white)),
-                    fillColor: white,
+                    fillColor: extraLightGrey,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: extraLightGrey),
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
                     enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: const BorderSide(color: white, width: 3)),
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide:
+                            const BorderSide(color: extraLightGrey, width: 3)),
                     hintText: "Confirm Password",
                     hintStyle: const TextStyle(color: lightGrey, fontSize: 12),
                     suffixIcon: IconButton(
+                        color: lightOrange,
+                        padding: EdgeInsets.symmetric(horizontal: 25.0),
                         onPressed: (() => setState(() =>
                             isPasswordVisibleConfirm =
                                 !isPasswordVisibleConfirm)),
@@ -205,7 +203,7 @@ class _RegisterState extends State<Register> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(context,
+                      Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) => Login()));
                     },
                     child: const Text(

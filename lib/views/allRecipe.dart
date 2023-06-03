@@ -48,19 +48,10 @@ class _AllRcipeState extends State<AllRcipe> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Material(
-                      color: lightOrange,
-                      borderRadius: BorderRadius.circular(50),
-                      elevation: 1,
-                      child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                        child: Icon(
-                          Icons.keyboard_arrow_left,
-                          color: white,
-                          size: 28,
-                        ),
-                      ),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: semiBlack,
+                      size: 24,
                     ),
                   ),
                   SizedBox(width: 16),
@@ -68,13 +59,16 @@ class _AllRcipeState extends State<AllRcipe> {
                       style: TextStyle(
                           color: semiBlack,
                           fontSize: 20,
-                          fontWeight: FontWeight.w600)),
+                          fontWeight: FontWeight.w700)),
                 ],
               ),
               isLoading
                   ? Padding(
                       padding: const EdgeInsets.only(top: 20),
-                      child: Center(child: const CircularProgressIndicator()),
+                      child: Center(
+                          child: const CircularProgressIndicator(
+                        color: lightOrange,
+                      )),
                     )
                   : GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
@@ -83,8 +77,8 @@ class _AllRcipeState extends State<AllRcipe> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 24,
+                        mainAxisSpacing: 4,
+                        crossAxisSpacing: 16,
                         childAspectRatio: 0.8,
                       ),
                       itemBuilder: (context, index) {
