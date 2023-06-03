@@ -1,18 +1,13 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cookuy/constants.dart';
-import 'package:cookuy/controller/firestoreSevices.dart';
 import 'package:cookuy/views/allRecipe.dart';
 import 'package:cookuy/views/components/customWidget.dart';
 import 'package:cookuy/views/detail.dart';
-import 'package:cookuy/views/login.dart';
 import 'package:cookuy/views/profile.dart';
 import 'package:cookuy/views/resumeIngredientWithoutImage.dart';
 import 'package:cookuy/views/saved.dart';
 import 'package:cookuy/views/search.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 import '../controller/recipesByIngreController.dart';
 import '../openCameraAndMLkit.dart';
 

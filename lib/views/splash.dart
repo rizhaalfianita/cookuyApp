@@ -47,7 +47,7 @@ class _SplashState extends State<Splash> {
             ),
             Spacer(),
             Text(
-              "Hackfest 2023 by 3AM",
+              "Google Solution Challenge 2023 by 3AM",
               style: TextStyle(
                   fontWeight: FontWeight.w500, fontSize: 15, color: white),
             )
